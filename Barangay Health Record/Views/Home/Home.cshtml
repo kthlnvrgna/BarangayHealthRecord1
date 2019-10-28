@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>HOME PAGE</h2>
+
+<table>
+    <tr>
+        <td>
+            <ul>
+                @foreach(string PxName in ViewBag.PatientList)
+                { 
+                <li>
+                    @PxName
+                </li>
+                } 
+            </ul>
+        </td>
+    </tr>
+</table>

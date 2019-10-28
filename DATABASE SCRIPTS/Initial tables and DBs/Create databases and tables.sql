@@ -1,0 +1,57 @@
+CREATE DATABASE PatientData
+
+USE PatientData
+GO
+
+CREATE TABLE tbPatientMaster(
+PatientID INTEGER IDENTITY(1,1),
+FirstName VARCHAR(250), 
+MiddleName VARCHAR(250),
+Lastname VARCHAR(250),
+Sex VARCHAR(1),
+BirthDate DATETIME,
+Address VARCHAR(500) NULL,
+CivilStatus VARCHAR(100),
+Nationality VARCHAR(100) NULL,
+Religion VARCHAR(100) NULL
+)
+GO
+
+CREATE TABLE tbPatientRegistration(
+PatientID VARCHAR(10) NOT NULL,
+RegDate DATETIME, 
+DcrDate DATETIME
+)
+GO 
+
+CREATE TABLE tbRegistrationDetails(
+PatientID VARCHAR(10) NOT NULL,
+FamilyRecord VARCHAR(MAX) NULL,
+Medicines VARCHAR(MAX) NULL,
+Allergies VARCHAR(250) NULL
+)
+GO
+
+CREATE DATABASE MasterFile
+GO
+
+USE MasterFile
+GO
+
+CREATE TABLE tbCivilStatus(
+ID INTEGER IDENTITY(1,1),
+Descripton VARCHAR(100)
+)
+GO
+
+CREATE TABLE tbNationality(
+ID INTEGER IDENTITY(1,1),
+Descripton VARCHAR(100)
+)
+GO
+
+CREATE TABLE tbReligion(
+ID INTEGER IDENTITY(1,1),
+Descripton VARCHAR(100)
+)
+GO 
