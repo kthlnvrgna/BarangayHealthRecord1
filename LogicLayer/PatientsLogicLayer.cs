@@ -37,8 +37,8 @@ namespace LogicLayer
                         if (!(dr["BirthDate"] is DBNull))
                         { 
                         patient.BirthDate = Convert.ToDateTime(dr["BirthDate"]); 
-                        liPatients.Add(patient);
                         }
+                        liPatients.Add(patient);
                     }
 
                 }
@@ -50,13 +50,19 @@ namespace LogicLayer
             string connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connectionStr))
             {
-                string queryStr = "INSERT INTO PatientData..tbPatientMaster (FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate)";
-                queryStr = queryStr + " VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday)";
+                //StringBuilder queryStr = "INSERT INTO PatientData..tbPatientMaster (FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate)";
+                //queryStr = queryStr + " VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday)";
+
+                StringBuilder queryStr;
+                queryStr = new StringBuilder();
+                queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
+                queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
+                queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
                 comm.CommandType = CommandType.Text;
-                comm.CommandText = queryStr;
+                comm.CommandText = queryStr.ToString();
                 comm.Parameters.AddWithValue("@fname", patient.FirstName);
                 comm.Parameters.AddWithValue("@mName", patient.MiddleName);
                 comm.Parameters.AddWithValue("@lName", patient.LastName);
@@ -64,8 +70,8 @@ namespace LogicLayer
                 comm.Parameters.AddWithValue("@address", patient.Address);
                 comm.Parameters.AddWithValue("@civilStatus", patient.CivilStatus);
                 comm.Parameters.AddWithValue("@nationality", patient.Nationality);
-                comm.Parameters.AddWithValue("@Religion", patient.Religion);
-                comm.Parameters.AddWithValue("@Bday", patient.BirthDate);
+                comm.Parameters.AddWithValue("@Religion", patient.Religion); 
+                comm.Parameters.AddWithValue("@Bday", patient.BirthDate); 
 
                 conn.Open(); 
                 comm.ExecuteNonQuery(); 

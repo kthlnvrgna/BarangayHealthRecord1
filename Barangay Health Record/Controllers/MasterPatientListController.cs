@@ -19,6 +19,7 @@ namespace Barangay_Health_Record.Controllers
         [HttpGet]//Will only respond if create/register new is triggered
         public ActionResult RegisterNewPatient()
         {
+            
             return View();
         }
         [HttpPost]
@@ -26,11 +27,16 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult RegisterNewPatientPost()
         {
 
-            Patients patient = new Patients();
-            UpdateModel(patient);  
-            PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
-            patientBlayer.AddNewPatientRegistration(patient);
-            return RedirectToAction("Index"); 
+            Patients patient = new Patients();  
+            TryUpdateModel(patient); 
+
+            if(ModelState.IsValid)
+            { 
+                PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
+                patientBlayer.AddNewPatientRegistration(patient);
+                return RedirectToAction("Index");  
+            }
+            return View();
         }
 
     }
