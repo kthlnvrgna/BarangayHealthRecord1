@@ -55,9 +55,9 @@ namespace LogicLayer
 
                 StringBuilder queryStr;
                 queryStr = new StringBuilder();
-                //queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
-                //queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
-                //queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
+                queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
+                queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
+                queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;

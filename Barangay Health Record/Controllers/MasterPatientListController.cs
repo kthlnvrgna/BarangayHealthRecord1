@@ -27,15 +27,15 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult RegisterNewPatientPost()
         {
 
-            Patients patient = new Patients();  
-            //TryUpdateModel(patient); 
+            Patients patient = new Patients();
+            TryUpdateModel(patient);
 
-            //if(ModelState.IsValid)
-            //{ 
-            //    PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
-            //    patientBlayer.AddNewPatientRegistration(patient);
-            //    return RedirectToAction("Index");  
-            //}
+            if (ModelState.IsValid)
+            {
+                PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
+                patientBlayer.AddNewPatientRegistration(patient);
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
