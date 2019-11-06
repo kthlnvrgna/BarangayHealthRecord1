@@ -6,8 +6,8 @@ using System.Text;
 namespace LogicLayer
 {
     public class Patients
-    {
-        public string PatientID { get; set; }
+    { 
+        public int PatientID { get; set; }
 
         [Required]
         public string FirstName { get; set; }

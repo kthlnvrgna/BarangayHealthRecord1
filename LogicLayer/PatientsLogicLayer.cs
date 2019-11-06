@@ -9,6 +9,9 @@ namespace LogicLayer
 {
     public class PatientsLogicLayer
     {
+
+        string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
+        StringBuilder _queryStr;
         public IEnumerable<Patients> PatientList
         {
             get
@@ -26,7 +29,7 @@ namespace LogicLayer
                     while (dr.Read())
                     {
                         Patients patient = new Patients();
-                        patient.PatientID = dr["PatientID"].ToString();
+                        patient.PatientID = Convert.ToInt32(dr["PatientID"].ToString());
                         patient.FirstName = dr["FirstName"].ToString();
                         patient.MiddleName = dr["MiddleName"].ToString();
                         patient.LastName = dr["LastName"].ToString();
@@ -47,22 +50,17 @@ namespace LogicLayer
         }
         public void AddNewPatientRegistration(Patients patient)
         {
-            string connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionStr))
-            {
-                //StringBuilder queryStr = "INSERT INTO PatientData..tbPatientMaster (FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate)";
-                //queryStr = queryStr + " VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday)";
-
-                StringBuilder queryStr;
-                queryStr = new StringBuilder();
-                queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
-                queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
-                queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {  
+                _queryStr = new StringBuilder();
+                _queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
+                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
+                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
                 comm.CommandType = CommandType.Text;
-                comm.CommandText = queryStr.ToString();
+                comm.CommandText = _queryStr.ToString();
                 comm.Parameters.AddWithValue("@fname", patient.FirstName);
                 comm.Parameters.AddWithValue("@mName", patient.MiddleName);
                 comm.Parameters.AddWithValue("@lName", patient.LastName);
@@ -77,6 +75,56 @@ namespace LogicLayer
                 comm.ExecuteNonQuery(); 
             }
         } 
+
+        public void UpdatePatientInfo(Patients patient)
+        {
+            using(SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    _queryStr = new StringBuilder();
+                    _queryStr.Append("UPDATE PatientData..tbPatientMaster ");
+                    _queryStr.Append("SET ");
+                    _queryStr.Append("FirstName  = @fName, ");
+                    _queryStr.Append("MiddleName = @mName, ");
+                    _queryStr.Append("LastName = @lName, ");
+                    _queryStr.Append("Sex = @sex, ");
+                    _queryStr.Append("Address = @address, ");
+                    _queryStr.Append("CivilStatus = @civilStatus, ");
+                    _queryStr.Append("Nationality = @nationality, ");
+                    _queryStr.Append("Religion = @religion, ");
+                    _queryStr.Append("BirthDate = @bDay ");
+                    _queryStr.Append("WHERE PatientID = @patientID");
+
+
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _queryStr.ToString();
+                    comm.Connection = conn;
+
+                    comm.Parameters.AddWithValue("@fname", patient.FirstName);
+                    comm.Parameters.AddWithValue("@mName", patient.MiddleName);
+                    comm.Parameters.AddWithValue("@lName", patient.LastName);
+                    comm.Parameters.AddWithValue("@sex", patient.Sex);
+                    comm.Parameters.AddWithValue("@address", patient.Address);
+                    comm.Parameters.AddWithValue("@civilStatus", patient.CivilStatus);
+                    comm.Parameters.AddWithValue("@nationality", patient.Nationality);
+                    comm.Parameters.AddWithValue("@Religion", patient.Religion);
+                    comm.Parameters.AddWithValue("@Bday", patient.BirthDate);
+                    comm.Parameters.AddWithValue("@patientID", patient.PatientID);
+
+                    try
+                    {
+                        conn.Open();
+                        comm.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+
+                }
+            }
+        }
 
     }
 }

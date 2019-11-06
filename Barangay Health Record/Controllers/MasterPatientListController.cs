@@ -18,8 +18,7 @@ namespace Barangay_Health_Record.Controllers
         }
         [HttpGet]//Will only respond if create/register new is triggered
         public ActionResult RegisterNewPatient()
-        {
-            
+        { 
             return View();
         }
         [HttpPost]
@@ -37,6 +36,30 @@ namespace Barangay_Health_Record.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        [HttpGet] 
+        public ActionResult Edit(int id)
+        {
+            PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
+            Patients patientsModel = patientBlayer.PatientList.Single(px => px.PatientID == id);
+
+            return View(patientsModel);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult UpdatePatientInfo(Patients patients)
+        {
+            if(ModelState.IsValid)
+            {
+                PatientsLogicLayer patientBLayer = new PatientsLogicLayer();
+                //patients.PatientID = Convert.ToInt32(Request.Form["PatientID"].ToString());
+                patientBLayer.UpdatePatientInfo(patients);
+
+                return RedirectToAction("Index"); 
+            } 
+            return View(patients);
         }
 
     }

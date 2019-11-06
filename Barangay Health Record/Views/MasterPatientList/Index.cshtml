@@ -47,7 +47,7 @@
         @Html.DisplayFor(modelItem => item.PatientID)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.FirstName)
+        @Html.DisplayFor(modelItem => item.FirstName) 
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.MiddleName)
@@ -71,7 +71,7 @@
         @Html.DisplayFor(modelItem => item.Religion)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+        @Html.ActionLink("Edit", "Edit", new { id = item.PatientID }) |
         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
         @Html.ActionLink("Select", "Index", "PatientInfo", new { /* id=item.PrimaryKey */ })

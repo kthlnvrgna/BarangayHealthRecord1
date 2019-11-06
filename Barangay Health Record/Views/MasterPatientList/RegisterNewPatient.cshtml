@@ -19,7 +19,7 @@
             <div class="form-group">
                 First Name
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @autocomplete="off" } })
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="form-group">
                 Middle Name
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="form-group">
                 Last Name
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <div class="form-group">
                 Address
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -84,7 +84,7 @@
             <div class="form-group">
                 Civil Status
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CivilStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CivilStatus, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.CivilStatus, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -93,7 +93,7 @@
             <div class="form-group">
                 Nationality
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <div class="form-group">
                 Religion
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", @autocomplete="off"  } })
                     @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
                 </div>
             </div>
