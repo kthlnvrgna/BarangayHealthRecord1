@@ -12,14 +12,13 @@ namespace LogicLayer
 
         string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
         StringBuilder _queryStr;
-        public IEnumerable<Patients> PatientList
+        public IEnumerable<PatientsModel> PatientList
         {
             get
-            {
-                string connectionString = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
-                List<Patients> liPatients = new List<Patients>();
+            { 
+                List<PatientsModel> liPatients = new List<PatientsModel>();
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connectionStr))
                 {
                     string queryStr = "SELECT TOP 100 * FROM PatientData..tbPatientMaster";
                     SqlCommand comm = new SqlCommand(queryStr, conn);
@@ -28,7 +27,7 @@ namespace LogicLayer
 
                     while (dr.Read())
                     {
-                        Patients patient = new Patients();
+                        PatientsModel patient = new PatientsModel();
                         patient.PatientID = Convert.ToInt32(dr["PatientID"].ToString());
                         patient.FirstName = dr["FirstName"].ToString();
                         patient.MiddleName = dr["MiddleName"].ToString();
@@ -48,14 +47,14 @@ namespace LogicLayer
                 return liPatients;
             }
         }
-        public void AddNewPatientRegistration(Patients patient)
+        public void AddNewPatientRegistration(PatientsModel patient)
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {  
                 _queryStr = new StringBuilder();
                 _queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
-                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate) ");
-                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday) ");
+                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate, Sex) ");
+                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday, @sex) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
@@ -72,11 +71,88 @@ namespace LogicLayer
                 comm.Parameters.AddWithValue("@Bday", patient.BirthDate); 
 
                 conn.Open(); 
-                comm.ExecuteNonQuery(); 
+                comm.ExecuteNonQuery();  
             }
         } 
 
-        public void UpdatePatientInfo(Patients patient)
+        public void InsertPatientAdmission(string pxID)
+        {
+            using(SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    _queryStr = new StringBuilder(); 
+                    _queryStr.Append("INSERT INTO PatientData..tbPatientRegistration ");
+                    _queryStr.Append("(PatientID, RegDate) ");
+                    _queryStr.Append("VALUES ");
+                    _queryStr.Append("(@patientID, GETDATE())");
+
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _queryStr.ToString();
+                    comm.Parameters.AddWithValue("@patientID", pxID);
+
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public string GetPatientRegnum(string pxID)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using (SqlCommand comm = new SqlCommand())
+                {
+                    _queryStr = new StringBuilder();
+                    _queryStr.Append(string.Format("SELECT RegNum FROM PatientData..tbPatientRegistration WHERE PatientID = '{0}' AND CAST(RegDate AS DATE) = CAST(GETDATE() AS DATE)", pxID));
+
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _queryStr.ToString();
+
+                    conn.Open();
+                    SqlDataReader rdr;
+                    rdr = comm.ExecuteReader();
+
+                    if(rdr.HasRows)
+                        while(rdr.Read())
+                        {
+                            if(rdr["RegNum"] != System.DBNull.Value)
+                            {
+                                return rdr["RegNum"].ToString();
+                            }
+                        }
+                    return null;
+                }
+            }
+
+        }
+
+        public void InsertInitialCheckUpDetails(string pxID, string pxRegnum)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using (SqlCommand comm = new SqlCommand())
+                {
+                    _queryStr = new StringBuilder();   
+                    _queryStr.Append("INSERT INTO PatientData..tbRegistrationDetails ");
+                    _queryStr.Append("(PatientID, RegNum) ");
+                    _queryStr.Append("VALUES ");
+                    _queryStr.Append("(@patientID, @patientRegNum)");
+
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = _queryStr.ToString();
+                    comm.Parameters.AddWithValue("@patientID", pxID);
+                    comm.Parameters.AddWithValue("@patientRegNum", pxRegnum);
+                    conn.Open();
+                    comm.ExecuteNonQuery(); 
+                }
+            }
+        }
+
+        public void UpdatePatientInfo(PatientsModel patient)
         {
             using(SqlConnection conn = new SqlConnection(_connectionStr))
             {

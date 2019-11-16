@@ -270,6 +270,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="Controllers\MasterPatientListController.cs" />
+    <Compile Include="Controllers\CurrentRegistrationsController.cs" />
     <Compile Include="Controllers\PatientInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -357,12 +358,14 @@
     <Content Include="Views\MasterPatientList\Index.cshtml" />
     <Content Include="Views\PatientInfo\Index.cshtml" />
     <Content Include="Views\MasterPatientList\Edit.cshtml" />
+    <Content Include="Views\CurrentRegistrations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\CheckUpDetails\" />
     <Folder Include="Views\CheckUp\" />
+    <Folder Include="Views\PatientDetails\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

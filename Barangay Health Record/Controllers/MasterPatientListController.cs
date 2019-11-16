@@ -13,7 +13,7 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Index()
         {
             PatientsLogicLayer patientConnection = new PatientsLogicLayer();
-            List<Patients> patients = patientConnection.PatientList.ToList();
+            List<PatientsModel> patients = patientConnection.PatientList.ToList();
             return View(patients);
         }
         [HttpGet]//Will only respond if create/register new is triggered
@@ -25,14 +25,21 @@ namespace Barangay_Health_Record.Controllers
         [ActionName("RegisterNewPatient")]
         public ActionResult RegisterNewPatientPost()
         {
+            PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
+            PatientsModel patient = new PatientsModel(); 
 
-            Patients patient = new Patients();
-            TryUpdateModel(patient);
+            TryUpdateModel(patient); 
 
-            if (ModelState.IsValid)
+            var isExisting = patientBlayer.PatientList.Any(px => (px.FirstName == patient.FirstName) && (px.LastName == patient.LastName) && (px.BirthDate == patient.BirthDate));
+
+            if (ModelState.IsValid && isExisting == false )
             {
-                PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
+                patientBlayer = new PatientsLogicLayer();
                 patientBlayer.AddNewPatientRegistration(patient);
+                var currentPxID = patientBlayer.PatientList.Where(px => (px.FirstName == patient.FirstName) && (px.LastName == patient.LastName) && (px.BirthDate == patient.BirthDate)).FirstOrDefault()?.PatientID;
+                patientBlayer.InsertPatientAdmission(currentPxID.ToString());
+                var currentPxRegnum = patientBlayer.GetPatientRegnum(currentPxID.ToString());
+                patientBlayer.InsertInitialCheckUpDetails(currentPxID.ToString(), currentPxRegnum.ToString());
                 return RedirectToAction("Index");
             }
             return View();
@@ -42,14 +49,14 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Edit(int id)
         {
             PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
-            Patients patientsModel = patientBlayer.PatientList.Single(px => px.PatientID == id);
+            PatientsModel patientsModel = patientBlayer.PatientList.Single(px => px.PatientID == id);
 
             return View(patientsModel);
         }
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult UpdatePatientInfo(Patients patients)
+        public ActionResult UpdatePatientInfo(PatientsModel patients)
         {
             if(ModelState.IsValid)
             {

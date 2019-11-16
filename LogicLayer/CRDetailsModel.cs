@@ -4,36 +4,32 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace LogicLayer
-{
-    public class Patients
+{ 
+    public class CRDetailsModel
     { 
         public int PatientID { get; set; }
-
-        [Required]
         public string FirstName { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string MiddleName { get; set; }
-
-        [Required]
         public string LastName { get; set; }
-
-        [Required]
-        public string Sex { get; set; } 
-
-        [Required]
+        public string Sex { get; set; }
         public DateTime? BirthDate { get; set; }
 
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required]
-        public string Address { get; set; }
+        public string FamilyRecord { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string CivilStatus { get; set; }
+        public string Medicines { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Nationality { get; set; }
+        public string Allergies { get; set; }
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Religion { get; set; }
+        [Required]
+        public string ChiefComplaint { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required]
+        public string Consultation { get; set; }
     }
 }
