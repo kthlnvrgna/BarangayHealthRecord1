@@ -22,6 +22,7 @@ namespace LogicLayer
         public string Sex { get; set; } 
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? BirthDate { get; set; }
 
         [Required]
@@ -35,5 +36,8 @@ namespace LogicLayer
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Religion { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        public string Category { get; set; }
     }
 }

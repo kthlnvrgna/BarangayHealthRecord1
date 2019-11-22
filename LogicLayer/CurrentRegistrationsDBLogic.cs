@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LogicLayer
 {
-    public class CurrentRegistrationsLogicLayer
+    public class CurrentRegistrationsDBLogic
     {
         string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
         StringBuilder _queryStr;
@@ -57,9 +57,9 @@ namespace LogicLayer
                 return Patients;
             }
         }
-        public CRDetailsModel GetCheckUpData(int id)
+        public CurrentRegistrationsModel GetCheckUpData(int id)
         {
-            CRDetailsModel CRDetails = null;
+            CurrentRegistrationsModel CRDetails = null;
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {
                 using (SqlCommand comm = new SqlCommand())
@@ -80,7 +80,7 @@ namespace LogicLayer
 
                     if (dr.Read())
                     {
-                        CRDetails = new CRDetailsModel
+                        CRDetails = new CurrentRegistrationsModel
                         {
                             PatientID = Convert.ToInt32(dr["PatientID"].ToString()),
                             FirstName = dr["FirstName"].ToString(),
@@ -103,7 +103,7 @@ namespace LogicLayer
             }
             return CRDetails;
         }
-        public void UdpatePatientCheckUpDetails(CRDetailsModel CRDetails)
+        public void UdpatePatientCheckUpDetails(CurrentRegistrationsModel CRDetails)
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {

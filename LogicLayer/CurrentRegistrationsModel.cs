@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LogicLayer
 { 
-    public class CRDetailsModel
+    public class CurrentRegistrationsModel
     { 
         public int PatientID { get; set; }
         public string FirstName { get; set; }

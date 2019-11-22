@@ -1,0 +1,148 @@
+﻿@model LogicLayer.PatientsModel
+
+@{
+    ViewBag.Title = "Register New Patient";
+}
+
+<h5>New Patient</h5> 
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (ViewBag.Message != null)
+        {
+            <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+            </script>
+        }
+        <div class="container">
+            <table style="width:1000px">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <h6>First Name</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Middle Name</h6>
+                            
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Last Name</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <h6>Gender</h6>
+                            <div class="col-md-10">
+                                @Html.DropDownList("Sex", new List<SelectListItem>
+                               {
+                                   new SelectListItem{Text="Female", Value="Female"},
+                                   new SelectListItem{Text="Male", Value="Male" }
+                               }, "Select Gender")
+                                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Address</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="form-group">
+                            <h6>Birthday</h6>
+                            <div class="col-md-10">
+                                <input type="date" class="form-control" id="BirthDate" name="BirthDate" />
+                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <h6>Civil Status</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.CivilStatus, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.CivilStatus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Nationality</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Religion</h6>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <h6>Category</h6>
+                            <div class="col-md-10"> 
+                                @Html.DropDownList("Category", new List<SelectListItem>
+                               {
+                                   new SelectListItem{Text="Adult", Value="Adult"},
+                                   new SelectListItem{Text="Infant", Value="Infant" },
+                                   new SelectListItem{Text="Pregnant", Value="Pregnant" },
+                                   new SelectListItem{Text="Senior Citizen", Value="Senior Citizen" }
+                               }, "Select Category")
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Register" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}

@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using LogicLayer;
 namespace LogicLayer
 {
-    public class PatientsLogicLayer
+    public class PatientsDBLogic
     {
 
         string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
@@ -40,6 +40,7 @@ namespace LogicLayer
                         { 
                         patient.BirthDate = Convert.ToDateTime(dr["BirthDate"]); 
                         }
+                        patient.Category = dr["Category"].ToString();
                         liPatients.Add(patient);
                     }
 
@@ -53,8 +54,8 @@ namespace LogicLayer
             {  
                 _queryStr = new StringBuilder();
                 _queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
-                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate, Sex) ");
-                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday, @sex) ");
+                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate, Sex, Category) ");
+                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday, @sex, @category) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
@@ -68,7 +69,8 @@ namespace LogicLayer
                 comm.Parameters.AddWithValue("@civilStatus", patient.CivilStatus);
                 comm.Parameters.AddWithValue("@nationality", patient.Nationality);
                 comm.Parameters.AddWithValue("@Religion", patient.Religion); 
-                comm.Parameters.AddWithValue("@Bday", patient.BirthDate); 
+                comm.Parameters.AddWithValue("@Bday", patient.BirthDate);  
+                comm.Parameters.AddWithValue("@category", patient.Category); 
 
                 conn.Open(); 
                 comm.ExecuteNonQuery();  

@@ -269,7 +269,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ConnectionStrings.cs" />
-    <Compile Include="Controllers\MasterPatientListController.cs" />
+    <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\CurrentRegistrationsController.cs" />
     <Compile Include="Controllers\PatientInfoController.cs" />
     <Compile Include="Global.asax.cs">
@@ -326,6 +326,13 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\Registration\css\style.css" />
+    <Content Include="Scripts\Registration\fonts\material-icon\css\material-design-iconic-font.css" />
+    <Content Include="Scripts\Registration\fonts\material-icon\css\material-design-iconic-font.min.css" />
+    <Content Include="Scripts\Registration\fonts\material-icon\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-300.svg" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-700.svg" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-regular.svg" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -354,11 +361,28 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\MasterPatientList\RegisterNewPatient.cshtml" />
-    <Content Include="Views\MasterPatientList\Index.cshtml" />
+    <Content Include="Views\Patients\RegisterNewPatient.cshtml" />
+    <Content Include="Views\Patients\Index.cshtml" />
     <Content Include="Views\PatientInfo\Index.cshtml" />
-    <Content Include="Views\MasterPatientList\Edit.cshtml" />
+    <Content Include="Views\Patients\Edit.cshtml" />
     <Content Include="Views\CurrentRegistrations\Index.cshtml" />
+    <Content Include="Scripts\Registration\css\style.css.map" />
+    <Content Include="Scripts\Registration\fonts\material-icon\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="Scripts\Registration\fonts\material-icon\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="Scripts\Registration\fonts\material-icon\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="Scripts\Registration\fonts\material-icon\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-300.eot" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-300.ttf" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-300.woff" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-300.woff2" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-700.eot" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-700.ttf" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-700.woff" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-700.woff2" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-regular.eot" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-regular.ttf" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-regular.woff" />
+    <Content Include="Scripts\Registration\fonts\roboto-slab\roboto-slab-v7-latin-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

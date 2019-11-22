@@ -12,7 +12,7 @@ namespace Barangay_Health_Record.Controllers
         // GET: PatientDetails
         public ActionResult Index()
         {
-            CurrentRegistrationsLogicLayer CurrentRegistrations = new CurrentRegistrationsLogicLayer();
+            CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
             List<PatientsModel> CurrentPatientsList = CurrentRegistrations.PatientList.ToList();
             return View(CurrentPatientsList);
         }  
@@ -20,15 +20,15 @@ namespace Barangay_Health_Record.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         { 
-            CurrentRegistrationsLogicLayer CurrentRegistrations = new CurrentRegistrationsLogicLayer();
-            CRDetailsModel CheckUpDetails = CurrentRegistrations.GetCheckUpData(id);
+            CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
+            CurrentRegistrationsModel CheckUpDetails = CurrentRegistrations.GetCheckUpData(id);
             return View(CheckUpDetails);
         }
         [HttpPost]
         [ActionName("Details")]
         public ActionResult UpdatePatientCheckUpDetails(string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation)
         {
-            CRDetailsModel CRDetails = new CRDetailsModel()
+            CurrentRegistrationsModel CRDetails = new CurrentRegistrationsModel()
             {
                 FamilyRecord = FamilyRecord,
                 Medicines = Medicines,
@@ -41,7 +41,7 @@ namespace Barangay_Health_Record.Controllers
 
             if(ModelState.IsValid)
             {
-                CurrentRegistrationsLogicLayer CurrentRegistrations = new CurrentRegistrationsLogicLayer();
+                CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
                 CurrentRegistrations.UdpatePatientCheckUpDetails(CRDetails);
                 return View(CRDetails);
             }
