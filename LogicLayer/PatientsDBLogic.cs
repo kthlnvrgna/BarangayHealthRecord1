@@ -10,12 +10,13 @@ namespace LogicLayer
     public class PatientsDBLogic
     {
 
-        string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
-        StringBuilder _queryStr;
+        private string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
+        private StringBuilder _queryStr; 
         public IEnumerable<PatientsModel> PatientList
         {
             get
             { 
+
                 List<PatientsModel> liPatients = new List<PatientsModel>();
 
                 using (SqlConnection conn = new SqlConnection(_connectionStr))
@@ -48,36 +49,44 @@ namespace LogicLayer
                 return liPatients;
             }
         }
-        public void AddNewPatientRegistration(PatientsModel patient)
+        public void AddNewPatientRegistration(PatientsModel Model)
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {  
                 _queryStr = new StringBuilder();
                 _queryStr.Append("INSERT INTO PatientData..tbPatientMaster ");
-                _queryStr.Append("(FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate, Sex, Category) ");
-                _queryStr.Append("VALUES (@fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday, @sex, @category) ");
+                _queryStr.Append("(PatientID, FirstName, MiddleName, LastName, Address, CivilStatus, Nationality, Religion, BirthDate, Sex, Category) ");
+                _queryStr.Append("VALUES (@patientID, @fname, @mName, @lName, @address, @civilStatus, @nationality, @Religion, @Bday, @sex, @category) ");
 
                 SqlCommand comm = new SqlCommand();
                 comm.Connection = conn;
                 comm.CommandType = CommandType.Text;
                 comm.CommandText = _queryStr.ToString();
-                comm.Parameters.AddWithValue("@fname", patient.FirstName);
-                comm.Parameters.AddWithValue("@mName", patient.MiddleName);
-                comm.Parameters.AddWithValue("@lName", patient.LastName);
-                comm.Parameters.AddWithValue("@sex", patient.Sex);
-                comm.Parameters.AddWithValue("@address", patient.Address);
-                comm.Parameters.AddWithValue("@civilStatus", patient.CivilStatus);
-                comm.Parameters.AddWithValue("@nationality", patient.Nationality);
-                comm.Parameters.AddWithValue("@Religion", patient.Religion); 
-                comm.Parameters.AddWithValue("@Bday", patient.BirthDate);  
-                comm.Parameters.AddWithValue("@category", patient.Category); 
+                comm.Parameters.AddWithValue("@patientID", GetPxRxNum("PxID"));
+                comm.Parameters.AddWithValue("@fname", Model.FirstName);
+                comm.Parameters.AddWithValue("@mName", Model.MiddleName);
+                comm.Parameters.AddWithValue("@lName", Model.LastName);
+                comm.Parameters.AddWithValue("@sex", Model.Sex);
+                comm.Parameters.AddWithValue("@address", Model.Address);
+                comm.Parameters.AddWithValue("@civilStatus", Model.CivilStatus);
+                comm.Parameters.AddWithValue("@nationality", Model.Nationality);
+                comm.Parameters.AddWithValue("@Religion", Model.Religion); 
+                comm.Parameters.AddWithValue("@Bday", Model.BirthDate);  
+                comm.Parameters.AddWithValue("@category", Model.Category);
 
-                conn.Open(); 
-                comm.ExecuteNonQuery();  
+                try
+                {
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+                catch
+                {
+                    throw;
+                }
             }
         } 
 
-        public void InsertPatientAdmission(string pxID)
+        public void InsertPatientAdmission()
         {
             using(SqlConnection conn = new SqlConnection(_connectionStr))
             {
@@ -85,53 +94,30 @@ namespace LogicLayer
                 {
                     _queryStr = new StringBuilder(); 
                     _queryStr.Append("INSERT INTO PatientData..tbPatientRegistration ");
-                    _queryStr.Append("(PatientID, RegDate) ");
+                    _queryStr.Append("(PatientID, RegDate, RegNum) ");
                     _queryStr.Append("VALUES ");
-                    _queryStr.Append("(@patientID, GETDATE())");
+                    _queryStr.Append("(@patientID, GETDATE(), @regnum)");
 
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _queryStr.ToString();
-                    comm.Parameters.AddWithValue("@patientID", pxID);
+                    comm.Parameters.AddWithValue("@patientID", GetPxRxNum("PxID"));
+                    comm.Parameters.AddWithValue("@regnum", GetPxRxNum("RxID"));
 
-                    conn.Open();
-                    comm.ExecuteNonQuery();
+                    try
+                    {
+                        conn.Open();
+                        comm.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                 }
             }
         }
 
-        public string GetPatientRegnum(string pxID)
-        {
-            using (SqlConnection conn = new SqlConnection(_connectionStr))
-            {
-                using (SqlCommand comm = new SqlCommand())
-                {
-                    _queryStr = new StringBuilder();
-                    _queryStr.Append(string.Format("SELECT RegNum FROM PatientData..tbPatientRegistration WHERE PatientID = '{0}' AND CAST(RegDate AS DATE) = CAST(GETDATE() AS DATE)", pxID));
-
-                    comm.Connection = conn;
-                    comm.CommandType = CommandType.Text;
-                    comm.CommandText = _queryStr.ToString();
-
-                    conn.Open();
-                    SqlDataReader rdr;
-                    rdr = comm.ExecuteReader();
-
-                    if(rdr.HasRows)
-                        while(rdr.Read())
-                        {
-                            if(rdr["RegNum"] != System.DBNull.Value)
-                            {
-                                return rdr["RegNum"].ToString();
-                            }
-                        }
-                    return null;
-                }
-            }
-
-        }
-
-        public void InsertInitialCheckUpDetails(string pxID, string pxRegnum)
+        public void InsertInitialCheckUpDetails()
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {
@@ -146,15 +132,62 @@ namespace LogicLayer
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _queryStr.ToString();
-                    comm.Parameters.AddWithValue("@patientID", pxID);
-                    comm.Parameters.AddWithValue("@patientRegNum", pxRegnum);
-                    conn.Open();
-                    comm.ExecuteNonQuery(); 
+                    comm.Parameters.AddWithValue("@patientID", GetPxRxNum("PxID"));
+                    comm.Parameters.AddWithValue("@patientRegNum", GetPxRxNum("RxID")); 
+
+                    try
+                    {
+                        conn.Open();
+                        comm.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                 }
             }
         }
 
-        public void UpdatePatientInfo(PatientsModel patient)
+        private string GetPxRxNum(string Field)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using (SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = "SELECT * FROM PatientData..PxRegNum";
+
+                    conn.Open();
+
+                    SqlDataReader rdr; 
+                    rdr = comm.ExecuteReader();
+                        if (rdr.Read())
+                            if (rdr[Field] != System.DBNull.Value)
+                                return rdr[Field].ToString();
+
+                    return null;
+                }
+            }
+        }
+
+        public void IncPxRxNum()
+        {
+            using(SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = "UPDATE PatientData..PxRegNum SET PxID = (CAST(PxID AS INT) + 1), RxID = (CAST(RxID AS INT) + 1)";
+
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void UpdatePatientInfo(PatientsModel Model)
         {
             using(SqlConnection conn = new SqlConnection(_connectionStr))
             {
@@ -179,16 +212,16 @@ namespace LogicLayer
                     comm.CommandText = _queryStr.ToString();
                     comm.Connection = conn;
 
-                    comm.Parameters.AddWithValue("@fname", patient.FirstName);
-                    comm.Parameters.AddWithValue("@mName", patient.MiddleName);
-                    comm.Parameters.AddWithValue("@lName", patient.LastName);
-                    comm.Parameters.AddWithValue("@sex", patient.Sex);
-                    comm.Parameters.AddWithValue("@address", patient.Address);
-                    comm.Parameters.AddWithValue("@civilStatus", patient.CivilStatus);
-                    comm.Parameters.AddWithValue("@nationality", patient.Nationality);
-                    comm.Parameters.AddWithValue("@Religion", patient.Religion);
-                    comm.Parameters.AddWithValue("@Bday", patient.BirthDate);
-                    comm.Parameters.AddWithValue("@patientID", patient.PatientID);
+                    comm.Parameters.AddWithValue("@fname", Model.FirstName);
+                    comm.Parameters.AddWithValue("@mName", Model.MiddleName);
+                    comm.Parameters.AddWithValue("@lName", Model.LastName);
+                    comm.Parameters.AddWithValue("@sex", Model.Sex);
+                    comm.Parameters.AddWithValue("@address", Model.Address);
+                    comm.Parameters.AddWithValue("@civilStatus", Model.CivilStatus);
+                    comm.Parameters.AddWithValue("@nationality", Model.Nationality);
+                    comm.Parameters.AddWithValue("@Religion", Model.Religion);
+                    comm.Parameters.AddWithValue("@Bday", Model.BirthDate);
+                    comm.Parameters.AddWithValue("@patientID", Model.PatientID);
 
                     try
                     {
@@ -206,3 +239,5 @@ namespace LogicLayer
 
     }
 }
+
+

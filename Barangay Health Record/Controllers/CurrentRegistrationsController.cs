@@ -9,7 +9,6 @@ namespace Barangay_Health_Record.Controllers
 {
     public class CurrentRegistrationsController : Controller
     {
-        // GET: PatientDetails
         public ActionResult Index()
         {
             CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();

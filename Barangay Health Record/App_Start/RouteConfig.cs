@@ -16,7 +16,7 @@ namespace Barangay_Health_Record
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Patients", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "NewUser", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

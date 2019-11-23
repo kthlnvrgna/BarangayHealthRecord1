@@ -10,13 +10,23 @@ namespace Barangay_Health_Record.Controllers
     public class PatientsController : Controller
     {
         // GET: MasterPatientList
-        public ActionResult Index()
+        public ActionResult Index(string fName, string lName, string sex, DateTime? bday)
         {
             PatientsDBLogic patientConnection = new PatientsDBLogic();
-            List<PatientsModel> patients = patientConnection.PatientList.ToList();
-            return View(patients);
+
+            List<PatientsModel> PatientsLi= patientConnection.PatientList.ToList();
+            if(fName == null && lName == null && sex == null && bday == null)
+            {
+                return View(PatientsLi); 
+            }
+
+            //Patient = patientConnection.PatientList.Where(px => px.FirstName == fName && px.LastName == lName && px.Sex == sex && px.BirthDate == bday); 
+
+            var patient = patientConnection.PatientList.Where(px => px.FirstName == fName && px.LastName == lName && px.Sex == sex && px.BirthDate == bday);
+            PatientsLi = patient.ToList();
+            return View(PatientsLi);
         }
-        [HttpGet]//Will only respond if create/register new is triggered
+        [HttpGet]
         public ActionResult RegisterNewPatient()
         { 
             return View();
@@ -34,19 +44,19 @@ namespace Barangay_Health_Record.Controllers
 
             if (ModelState.IsValid && isExisting == false )
             {
+
                 patientBlayer = new PatientsDBLogic();
-                patientBlayer.AddNewPatientRegistration(patient);
-
-                var currentPxID = patientBlayer.PatientList.Where(px => (px.FirstName == patient.FirstName) && (px.LastName == patient.LastName) && (px.BirthDate == patient.BirthDate)).FirstOrDefault()?.PatientID;
-                patientBlayer.InsertPatientAdmission(currentPxID.ToString());
-
-                var currentPxRegnum = patientBlayer.GetPatientRegnum(currentPxID.ToString());
-                patientBlayer.InsertInitialCheckUpDetails(currentPxID.ToString(), currentPxRegnum.ToString());
+                patientBlayer.AddNewPatientRegistration(patient); 
+                patientBlayer.InsertPatientAdmission(); 
+                patientBlayer.InsertInitialCheckUpDetails(); 
+                patientBlayer.IncPxRxNum();
 
                 return RedirectToAction("Index");
             }
-            ViewBag.Message = ("Patient has existing record");
-            return View();
+
+            ViewBag.Message = ("Patient already has an existing record!");
+            return RedirectToAction("Index", new { fName = patient.FirstName, lName = patient.LastName, sex = patient.Sex, bday = patient.BirthDate });
+            //return View();
         }
 
         [HttpGet] 
