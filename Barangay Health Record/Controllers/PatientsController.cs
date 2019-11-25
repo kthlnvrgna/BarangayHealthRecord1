@@ -9,7 +9,7 @@ namespace Barangay_Health_Record.Controllers
 {
     public class PatientsController : Controller
     {
-        // GET: MasterPatientList
+        // GET: MasterPatientList 
         public ActionResult Index(string fName, string lName, string sex, DateTime? bday)
         {
             PatientsDBLogic patientConnection = new PatientsDBLogic();
@@ -31,8 +31,8 @@ namespace Barangay_Health_Record.Controllers
         { 
             return View();
         }
-        [HttpPost]
         [ActionName("RegisterNewPatient")]
+        [HttpPost]
         public ActionResult RegisterNewPatientPost()
         {
             PatientsDBLogic patientBlayer = new PatientsDBLogic();
@@ -46,17 +46,17 @@ namespace Barangay_Health_Record.Controllers
             {
 
                 patientBlayer = new PatientsDBLogic();
-                patientBlayer.AddNewPatientRegistration(patient); 
-                patientBlayer.InsertPatientAdmission(); 
-                patientBlayer.InsertInitialCheckUpDetails(); 
+                patientBlayer.AddNewPatientRegistration(patient);
+                patientBlayer.InsertPatientAdmission(null); 
+                patientBlayer.InsertInitialCheckUpDetails(null); 
                 patientBlayer.IncPxRxNum();
 
                 return RedirectToAction("Index");
             }
 
             ViewBag.Message = ("Patient already has an existing record!");
-            return RedirectToAction("Index", new { fName = patient.FirstName, lName = patient.LastName, sex = patient.Sex, bday = patient.BirthDate });
-            //return View();
+            //return RedirectToAction("Index", new { fName = patient.FirstName, lName = patient.LastName, sex = patient.Sex, bday = patient.BirthDate });
+            return View();
         }
 
         [HttpGet] 
@@ -68,8 +68,8 @@ namespace Barangay_Health_Record.Controllers
             return View(patientsModel);
         }
 
-        [HttpPost]
         [ActionName("Edit")]
+        [HttpPost]
         public ActionResult UpdatePatientInfo(PatientsModel patients)
         {
             if(ModelState.IsValid)
@@ -80,6 +80,15 @@ namespace Barangay_Health_Record.Controllers
                 return RedirectToAction("Index"); 
             } 
             return View(patients);
+        } 
+        public ActionResult ReAdmit(string id)
+        {
+            PatientsDBLogic dbLogic = new PatientsDBLogic();
+
+            dbLogic.InsertPatientAdmission(id);
+            dbLogic.InsertInitialCheckUpDetails(id);
+            dbLogic.IncRxNum();
+            return RedirectToAction("Index", "CurrentRegistrations");
         }
 
     }

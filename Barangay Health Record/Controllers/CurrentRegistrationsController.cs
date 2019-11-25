@@ -20,9 +20,17 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Details(int id)
         { 
             CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-            CurrentRegistrationsModel CheckUpDetails = CurrentRegistrations.GetCheckUpData(id);
-            return View(CheckUpDetails);
+            CurrentRegistrationsModel Model = CurrentRegistrations.GetCheckUpData(id);
+            return View(Model);
         }
+
+        [HttpPost]
+        [ActionName("Details")]
+        public ActionResult SaveCheckUpDetails()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ActionName("Details")]
         public ActionResult UpdatePatientCheckUpDetails(string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation)

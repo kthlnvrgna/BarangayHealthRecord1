@@ -1,0 +1,92 @@
+﻿@model LogicLayer.CurrentRegistrationsModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html> 
+<link href="~/Scripts/NewUser/css/main.css" rel="stylesheet" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <form class="container">
+        <div class="container">
+            <h4>CurrentRegistrationsModel</h4>
+            <hr />
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label">Patient ID</span>
+                    @Html.DisplayFor(model => model.PatientID)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span>First Name</span>
+                    @Html.DisplayFor(model => model.FirstName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label">Middle Name</span>
+                    @Html.DisplayFor(model => model.MiddleName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label">Last Name</span>
+                    @Html.DisplayFor(model => model.LastName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="label">Sex</span>
+                    @Html.DisplayFor(model => model.Sex)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span>Birthday</span>
+                    @Html.DisplayFor(model => model.BirthDate)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span>Family Record</span>
+                    @Html.DisplayFor(model => model.FamilyRecord)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Medicines)
+                    @Html.EditorFor(model => model.Medicines, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Allergies)
+                    @Html.EditorFor(model => model.Allergies, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span>Chief Complaint</span>
+                    @Html.EditorFor(model => model.ChiefComplaint, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Consultation)
+                    @Html.EditorFor(model => model.Consultation, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                </div>
+            </div>
+        </div>
+    </form>
+    <p>
+        <input type="submit" value="Save" class="btn btn--radius-2 btn--green" style="width:27%" />
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

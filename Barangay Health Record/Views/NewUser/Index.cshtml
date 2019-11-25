@@ -13,7 +13,7 @@
 </head>
 <body>
     @using (Html.BeginForm())
-    {
+    { 
         @Html.AntiForgeryToken()
         <div class="page-wrapper font-poppins">
             <div class="wrapper wrapper--w680">
@@ -49,7 +49,7 @@
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                             </div>
-                        </div> 
+                        </div>
 
                         <div class="row-space">
                             <div>
@@ -94,6 +94,6 @@
                 </div>
             </div>
         </div>
-    } 
+    }
 </body>
 </html>

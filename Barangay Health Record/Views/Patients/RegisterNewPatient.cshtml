@@ -14,6 +14,26 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+
+                var confirm = window.confirm("@ViewBag.Message");
+                //alert();
+
+                if (confirm) {
+                    window.location = "/Patients/Index" 
+                    var url = '@Html.Raw(Url.Action("Index", "Patients", new {fname = "courtney", lName = "barns", sex = "Male", bday = "10/10/2010 00:00:00"}))';   
+                    var params = url.replace("fname", "courtney").replace("lname", "barns").replace("sex", "Male").replace("bday", "10/10/2010 00:00:00");
+
+                    window.location.href = url;
+                }
+
+            };
+        </script>
+    }
+
     <div class="container">
         <table style="width:1000px">
             <tr>
@@ -136,22 +156,6 @@
             </tr>
         </table>
     </div>
-
-    @if (ViewBag.Message != null)
-    {
-        <script type="text/javascript">
-            window.onload = function () {
-
-                var confirm = window.confirm("@ViewBag.Message");
-                //alert(); 
-
-                if (confirm) {
-                    window.location = "/Patients/Index"               
-                }
-                  
-            };
-        </script>
-    }
 </div>
 
 

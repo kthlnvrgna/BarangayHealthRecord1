@@ -8,6 +8,7 @@ namespace LogicLayer
     public class PatientsModel
     { 
         public int PatientID { get; set; }
+        public string RegNum { get; set; }
 
         [Required]
         public string FirstName { get; set; }

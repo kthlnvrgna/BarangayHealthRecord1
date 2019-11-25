@@ -16,16 +16,14 @@ namespace Barangay_Health_Record.Controllers
             return View();
         }
 
-        [HttpPost]
         [ActionName("Index")]
+        [HttpPost]
         public ActionResult CreateNewUser()
         {
             NewUserDBLogic dbLogic = new NewUserDBLogic(); 
             NewUserModel model = new NewUserModel();
 
-            TryUpdateModel(model);
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && model != null)
             {
                 dbLogic.AddNewUser(model);
                 return RedirectToAction("Index");

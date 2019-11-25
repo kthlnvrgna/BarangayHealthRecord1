@@ -11,7 +11,8 @@ namespace LogicLayer
     {
 
         private string _connectionStr = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
-        private StringBuilder _queryStr; 
+        private StringBuilder _queryStr;
+        private string _pxID;
         public IEnumerable<PatientsModel> PatientList
         {
             get
@@ -86,8 +87,14 @@ namespace LogicLayer
             }
         } 
 
-        public void InsertPatientAdmission()
+        public void InsertPatientAdmission(string pxID)
         {
+            if (pxID == null)
+            {
+                _pxID = GetPxRxNum("PxID");
+            }
+            else _pxID = pxID;
+
             using(SqlConnection conn = new SqlConnection(_connectionStr))
             {
                 using(SqlCommand comm = new SqlCommand())
@@ -100,8 +107,8 @@ namespace LogicLayer
 
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
-                    comm.CommandText = _queryStr.ToString();
-                    comm.Parameters.AddWithValue("@patientID", GetPxRxNum("PxID"));
+                    comm.CommandText = _queryStr.ToString(); 
+                    comm.Parameters.AddWithValue("@patientID", _pxID);
                     comm.Parameters.AddWithValue("@regnum", GetPxRxNum("RxID"));
 
                     try
@@ -117,8 +124,14 @@ namespace LogicLayer
             }
         }
 
-        public void InsertInitialCheckUpDetails()
+        public void InsertInitialCheckUpDetails(string pxID)
         {
+            if (pxID == null)
+            {
+                _pxID = GetPxRxNum("PxID");
+            }
+            else _pxID = pxID;
+
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {
                 using (SqlCommand comm = new SqlCommand())
@@ -132,7 +145,7 @@ namespace LogicLayer
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _queryStr.ToString();
-                    comm.Parameters.AddWithValue("@patientID", GetPxRxNum("PxID"));
+                    comm.Parameters.AddWithValue("@patientID", _pxID);
                     comm.Parameters.AddWithValue("@patientRegNum", GetPxRxNum("RxID")); 
 
                     try
@@ -180,6 +193,22 @@ namespace LogicLayer
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = "UPDATE PatientData..PxRegNum SET PxID = (CAST(PxID AS INT) + 1), RxID = (CAST(RxID AS INT) + 1)";
+
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void IncRxNum()
+        {
+            using(SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = "UPDATE PatientData..PxRegNum SET RxID = (CAST(RxID AS INT) + 1)";
 
                     conn.Open();
                     comm.ExecuteNonQuery();
