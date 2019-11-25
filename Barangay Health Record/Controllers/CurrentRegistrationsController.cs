@@ -12,47 +12,34 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Index()
         {
             CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-            List<PatientsModel> CurrentPatientsList = CurrentRegistrations.PatientList.ToList();
-            return View(CurrentPatientsList);
+            List<PatientsModel> Model = CurrentRegistrations.PatientList.ToList();
+            return View(Model);
         }  
 
         [HttpGet]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string regnum)
         { 
             CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-            CurrentRegistrationsModel Model = CurrentRegistrations.GetCheckUpData(id);
+            CurrentRegistrationsModel Model = CurrentRegistrations.GetCheckUpData(id, regnum);
             return View(Model);
         }
 
         [HttpPost]
         [ActionName("Details")]
-        public ActionResult SaveCheckUpDetails()
+        public ActionResult SaveCheckUpDetails( string RegNum, string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation)
         {
+            CurrentRegistrationDetailsModel Model = new CurrentRegistrationDetailsModel(); 
+            Model.RegNum = RegNum;
+            Model.FamilyRecord = FamilyRecord;
+            Model.Medicines = Medicines;
+            Model.Allergies = Allergies;
+            Model.ChiefComplaint = ChiefComplaint;
+            Model.Consultation = Consultation;
+
+            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
+            dbLogic.UdpatePatientCheckUpDetails(Model); 
+
             return View();
-        }
-
-        [HttpPost]
-        [ActionName("Details")]
-        public ActionResult UpdatePatientCheckUpDetails(string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation)
-        {
-            CurrentRegistrationsModel CRDetails = new CurrentRegistrationsModel()
-            {
-                FamilyRecord = FamilyRecord,
-                Medicines = Medicines,
-                Allergies = Allergies,
-                ChiefComplaint = ChiefComplaint,
-                Consultation = Consultation
-            };
-
-            TryUpdateModel(CRDetails);
-
-            if(ModelState.IsValid)
-            {
-                CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-                CurrentRegistrations.UdpatePatientCheckUpDetails(CRDetails);
-                return View(CRDetails);
-            }
-            return View();
-        }
+        } 
     }
 }

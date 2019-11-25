@@ -9,6 +9,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PatientID)
         </th>
+        <th> 
+            @Html.DisplayNameFor(model => model.RegNum)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -23,34 +26,37 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.BirthDate)
-        </th> 
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PatientID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td> 
-        <td> 
-            @Html.ActionLink("Check-up Details", "Details", new { id = item.PatientID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.PatientID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RegNum)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MiddleName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Sex)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BirthDate)
+    </td>
+    <td>
+        @Html.ActionLink("Check-up Details", "Details", new { id = item.PatientID, regnum = item.RegNum })
+    </td>
+</tr>
 }
 
 </table>

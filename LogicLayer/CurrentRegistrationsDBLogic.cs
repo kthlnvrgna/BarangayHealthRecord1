@@ -38,6 +38,7 @@ namespace LogicLayer
                         {
                             PatientsModel patient = new PatientsModel();
                             patient.PatientID = Convert.ToInt32(dr["PatientID"].ToString());
+                            patient.RegNum = dr["RegNum"].ToString();
                             patient.FirstName = dr["FirstName"].ToString();
                             patient.MiddleName = dr["MiddleName"].ToString();
                             patient.LastName = dr["LastName"].ToString();
@@ -57,7 +58,7 @@ namespace LogicLayer
                 return Patients;
             }
         }
-        public CurrentRegistrationsModel GetCheckUpData(int id)
+        public CurrentRegistrationsModel GetCheckUpData(int id, string regnum)
         {
             CurrentRegistrationsModel CRDetails = null;
             using (SqlConnection conn = new SqlConnection(_connectionStr))
@@ -65,11 +66,11 @@ namespace LogicLayer
                 using (SqlCommand comm = new SqlCommand())
                 { 
                     _queryStr = new StringBuilder();
-                    _queryStr.Append("SELECT * ");
+                    _queryStr.Append("SELECT b.PatientID, a.RegNum, FirstName, MiddleName, Lastname, sex, FamilyRecord, Medicines, Allergies, ChiefComplaint, Consultation, BirthDate ");
                     _queryStr.Append("FROM PatientData..tbPatientRegistration a ");
                     _queryStr.Append("LEFT JOIN PatientData..tbPatientMaster b on a.PatientID = b.PatientID ");
                     _queryStr.Append("LEFT JOIN PatientData..tbRegistrationDetails c on b.PatientID = c.PatientID ");
-                    _queryStr.Append(string.Format("WHERE b.PatientID = '{0}'", id));
+                    _queryStr.Append(string.Format("WHERE b.PatientID = '{0}' AND a.RegNum = '{1}'", id, regnum));
 
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
@@ -83,6 +84,7 @@ namespace LogicLayer
                         CRDetails = new CurrentRegistrationsModel
                         {
                             PatientID = Convert.ToInt32(dr["PatientID"].ToString()),
+                            RegNum = Convert.ToInt32(dr["RegNum"].ToString()),
                             FirstName = dr["FirstName"].ToString(),
                             MiddleName = dr["MiddleName"].ToString(),
                             LastName = dr["LastName"].ToString(),
@@ -103,7 +105,7 @@ namespace LogicLayer
             }
             return CRDetails;
         }
-        public void UdpatePatientCheckUpDetails(CurrentRegistrationsModel CRDetails)
+        public void UdpatePatientCheckUpDetails(CurrentRegistrationDetailsModel Model)
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {
@@ -116,17 +118,19 @@ namespace LogicLayer
                     _queryStr.Append("Medicines = @meds, ");
                     _queryStr.Append("Allergies = @allergies, ");
                     _queryStr.Append("ChiefComplaint = @chiefComplaint, ");
-                    _queryStr.Append("Consultation= @consultation, "); 
+                    _queryStr.Append("Consultation= @consultation "); 
+                    _queryStr.Append(string.Format("WHERE RegNum = '{0}'", Model.RegNum));
 
 
                     comm.CommandType = CommandType.Text;
                     comm.CommandText = _queryStr.ToString();
                     comm.Connection = conn;
 
-                    comm.Parameters.AddWithValue("@familyRecord", CRDetails.FamilyRecord);
-                    comm.Parameters.AddWithValue("@meds", CRDetails.Medicines);
-                    comm.Parameters.AddWithValue("@allergies", CRDetails.Allergies);
-                    comm.Parameters.AddWithValue("@consultations", CRDetails.Consultation); 
+                    comm.Parameters.AddWithValue("@familyRecord", Model.FamilyRecord);
+                    comm.Parameters.AddWithValue("@meds", Model.Medicines);
+                    comm.Parameters.AddWithValue("@allergies", Model.Allergies);
+                    comm.Parameters.AddWithValue("@chiefComplaint", Model.ChiefComplaint); 
+                    comm.Parameters.AddWithValue("@consultation", Model.Consultation); 
 
                     try
                     {
