@@ -37,7 +37,9 @@ CREATE TABLE [dbo].[tbRegistrationDetails](
 	[Medicines] [varchar](max) NULL,
 	[Allergies] [varchar](250) NULL,
 	[ChiefComplaint] [varchar](max) NULL,
-	[Consultation] [varchar](max) NULL
+	[Consultation] [varchar](max) NULL,
+	[Treatment] [varchar](max) NULL,
+	[Diagnosis] [varchar](max) NULL
 	PRIMARY KEY (RegNum)
 )  
 GO

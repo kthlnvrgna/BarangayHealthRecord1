@@ -28,15 +28,19 @@ namespace LogicLayer
 
         [Required]
         public string Address { get; set; }
+        [Required]
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string CivilStatus { get; set; }
+        [Required]
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Nationality { get; set; }
+        [Required]
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Religion { get; set; }
+        [Required]
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Category { get; set; }

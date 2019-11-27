@@ -14,10 +14,10 @@ namespace Barangay_Health_Record.Controllers
         {
             PatientsDBLogic patientConnection = new PatientsDBLogic();
 
-            List<PatientsModel> PatientsLi= patientConnection.PatientList.ToList();
-            if(fName == null && lName == null && sex == null && bday == null)
+            List<PatientsModel> PatientsLi = patientConnection.PatientList.ToList();
+            if (fName == null && lName == null && sex == null && bday == null)
             {
-                return View(PatientsLi); 
+                return View(PatientsLi);
             }
 
             //Patient = patientConnection.PatientList.Where(px => px.FirstName == fName && px.LastName == lName && px.Sex == sex && px.BirthDate == bday); 
@@ -28,7 +28,7 @@ namespace Barangay_Health_Record.Controllers
         }
         [HttpGet]
         public ActionResult RegisterNewPatient()
-        { 
+        {
             return View();
         }
         [ActionName("RegisterNewPatient")]
@@ -36,19 +36,19 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult RegisterNewPatientPost()
         {
             PatientsDBLogic patientBlayer = new PatientsDBLogic();
-            PatientsModel patient = new PatientsModel(); 
+            PatientsModel patient = new PatientsModel();
 
-            TryUpdateModel(patient); 
+            TryUpdateModel(patient);
 
             var isExisting = patientBlayer.PatientList.Any(px => (px.FirstName == patient.FirstName) && (px.LastName == patient.LastName) && (px.BirthDate == patient.BirthDate));
 
-            if (ModelState.IsValid && isExisting == false )
+            if (ModelState.IsValid && isExisting == false)
             {
 
                 patientBlayer = new PatientsDBLogic();
                 patientBlayer.AddNewPatientRegistration(patient);
-                patientBlayer.InsertPatientAdmission(null); 
-                patientBlayer.InsertInitialCheckUpDetails(null); 
+                patientBlayer.InsertPatientAdmission(null);
+                patientBlayer.InsertInitialCheckUpDetails(null);
                 patientBlayer.IncPxRxNum();
 
                 return RedirectToAction("Index");
@@ -59,7 +59,7 @@ namespace Barangay_Health_Record.Controllers
             return View();
         }
 
-        [HttpGet] 
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             PatientsDBLogic patientBlayer = new PatientsDBLogic();
@@ -72,15 +72,20 @@ namespace Barangay_Health_Record.Controllers
         [HttpPost]
         public ActionResult UpdatePatientInfo(PatientsModel patients)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 PatientsDBLogic patientBLayer = new PatientsDBLogic();
                 patientBLayer.UpdatePatientInfo(patients);
 
-                return RedirectToAction("Index"); 
-            } 
+                return RedirectToAction("Index");
+            }
             return View(patients);
-        } 
+        }
+
+        public ActionResult Details()
+        {
+            return View();
+        }
         public ActionResult ReAdmit(string id)
         {
             PatientsDBLogic dbLogic = new PatientsDBLogic();
@@ -89,7 +94,7 @@ namespace Barangay_Health_Record.Controllers
             dbLogic.InsertInitialCheckUpDetails(id);
             dbLogic.IncRxNum();
             return RedirectToAction("Index", "CurrentRegistrations");
-        }
+        } 
 
     }
 }

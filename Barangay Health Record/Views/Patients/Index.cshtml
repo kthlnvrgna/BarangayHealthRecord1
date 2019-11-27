@@ -5,15 +5,9 @@
 }
 
 <h2>Patient List</h2>
-
-<p>
-    @Html.ActionLink("Register New Patient", "RegisterNewPatient")
-</p>
-<table class="table">
+ 
+<table class="table" style="width:1000px">
     <tr>
-        <th>
-            Patient ID
-        </th>
         <th>
             First Name
         </th>
@@ -38,16 +32,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Religion)
         </th>
+        <th>
+            Patient Type
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayFor(modelItem => item.PatientID)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FirstName) 
+        @Html.DisplayFor(modelItem => item.FirstName)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.MiddleName)
@@ -59,7 +53,7 @@
         @Html.DisplayFor(modelItem => item.Sex)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.BirthDate)
+        @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.BirthDate))
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Address)
@@ -71,10 +65,12 @@
         @Html.DisplayFor(modelItem => item.Religion)
     </td>
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.PatientID }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("New Checkup", "ReAdmit", new { id = item.PatientID }) |
-        @Html.ActionLink("Select", "Index", "PatientInfo", new { /* id=item.PrimaryKey */ })
+        @Html.DisplayFor(modelItem => item.Category)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.PatientID })  <br />
+        @Html.ActionLink("Details", "Index", "PatientDetails", new { id = item.PatientID }, null) <br />
+        @Html.ActionLink("New Checkup", "ReAdmit", new { id = item.PatientID })
     </td>
 </tr>
 } 

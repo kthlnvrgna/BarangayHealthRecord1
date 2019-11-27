@@ -1,0 +1,80 @@
+﻿@model LogicLayer.CurrentUserModel
+
+@{
+    Layout = null;
+}
+
+<link href="~/Scripts/NewUser/css/main.css" rel="stylesheet" />
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UserDetails</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="page-wrapper font-poppins">
+            <div class="wrapper wrapper--w680">
+                <div class="card card-4">
+                    <div class="card-body">
+                        <h4>Edit User Information</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { style = "color:red" })
+                        <div class="row row-space" style="display: inherit;">
+                            <div>
+                                <span class="label">First Name</span>
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { style = "color:red" })
+                            </div>
+                        </div>
+
+                        <div class="row row-space" style="display: inherit;">
+                            <div>
+                                <span class="label">Last Name</span>
+                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { style = "color:red" })
+                            </div>
+                        </div>
+
+                        <div class="row row-space" style="display: inherit;">
+                            <div>
+                                <span class="label">Username</span>
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { style = "color:red" })
+                            </div>
+                        </div>
+
+                        <div class="row row-space" style="display: inherit;">
+                            <div>
+                                <span class="label">Password</span>
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { style = "color:red" })
+                            </div>
+                        </div>
+
+                        <div class="row row-space" style="display: inherit;" >
+                            @if (ViewBag.Success != null)
+                            {
+                                @Html.Label("User information updated successfully!", new { style = "color:green" } )
+                            } 
+                        </div>
+
+                        <div class="row row-space" style="text-align: center; display: inherit;">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn--radius-2 btn--green" style="width:27%" />
+                                @Html.ActionLink("Back", "Index", null, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

@@ -33,5 +33,13 @@ namespace LogicLayer
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         [Required]
         public string Consultation { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required]
+        public string Diagnosis { get; set; }
+
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required]
+        public string Treatment { get; set; }
     }
 }

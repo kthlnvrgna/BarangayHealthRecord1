@@ -11,6 +11,27 @@ namespace LogicLayer
     {
         private string _connectionString = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
         private StringBuilder _query;
+
+        public bool CheckExistingUser(string userName)
+        {
+            using(SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = string.Format("SELECT 1 FROM Users..tbUserInfo WHERE UserName = '{0}'", userName);
+                    conn.Open();
+
+                    SqlDataReader rdr;
+                    rdr = comm.ExecuteReader();
+
+                    if (rdr.Read())
+                        return true;
+                    return false;
+                }
+            }
+        }
         public void AddNewUser(NewUserModel Model)
         {
             using(SqlConnection conn = new SqlConnection(_connectionString))

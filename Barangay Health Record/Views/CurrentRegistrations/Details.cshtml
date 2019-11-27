@@ -4,8 +4,10 @@
     Layout = null;
 }
 
-<!DOCTYPE html> 
+
+<!DOCTYPE html>
 <link href="~/Scripts/NewUser/css/main.css" rel="stylesheet" />
+ 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -26,7 +28,7 @@
                             </div>
                             <div>
                                 @Html.DisplayFor(model => model.RegNum)
-                                @Html.DisplayFor(model => model.PatientID, new { htmlAttributes = new { @style="display:none" } })
+                                @Html.DisplayFor(model => model.PatientID, new { htmlAttributes = new { @style = "display:none" } })
                             </div>
                         </div>
                         <div class="row row-space">
@@ -75,40 +77,120 @@
                         <div class="row-space">
                             <div class="col-sm-4">
                                 <span class="label">Family Record</span>
-                                @Html.EditorFor(model => model.FamilyRecord, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.FamilyRecord, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                { 
+                                    @Html.EditorFor(model => model.FamilyRecord, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                }
+
                             </div>
                         </div>
                         <div class="row-space">
                             <div class="col-sm-4">
                                 <span class="label">Medicines</span>
-                                @Html.EditorFor(model => model.Medicines, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.Medicines, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Medicines, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                }
+
                             </div>
                         </div>
                         <div class="row-space">
                             <div class="col-sm-4">
                                 <span class="label">Allergies</span>
-                                @Html.EditorFor(model => model.Allergies, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.Allergies, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Allergies, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                } 
                             </div>
                         </div>
                         <div class="row-space">
                             <div class="col-sm-4">
                                 <span>Chief Complaint</span>
-                                @Html.EditorFor(model => model.ChiefComplaint, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.ChiefComplaint, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.ChiefComplaint, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                }
+
                             </div>
                         </div>
                         <div class="row-space">
                             <div class="col-sm-4">
                                 @Html.DisplayNameFor(model => model.Consultation)
-                                @Html.EditorFor(model => model.Consultation, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.Consultation, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Consultation, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled"  } })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="row-space">
+                            <div class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Diagnosis)
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.Diagnosis, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Diagnosis, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                }
+
+                            </div>
+                        </div>
+                        <div class="row-space">
+                            <div class="col-sm-4">
+                                @Html.DisplayNameFor(model => model.Treatment)
+                                @if (ViewBag.Details == null)
+                                {
+                                    @Html.EditorFor(model => model.Treatment, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Treatment, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @disabled="disabled" } })
+                                }
+
                             </div>
                         </div>
 
 
+                        <div class="row row-space" style="text-align: center; display: inherit; ">
+                            @if (ViewBag.Message != null)
+                            {
+                                @Html.Label("Saved!")
+                            }
+                        </div>
                         <br />
                         <div class="row row-space" style="text-align: center; display: inherit; ">
-                            <input type="submit" value="Save" class="btn btn--radius-2 btn--green" style="width:27%" /> 
-                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
-                        </div> 
+                            <input type="submit" value="Save" class="btn btn--radius-2 btn--green" style="width:27%" />
+                            @if (ViewBag.Details != null)
+                            {
+                                @Html.ActionLink("Back to List", "Index", "PatientDetails", new { id = Convert.ToInt32(@Session["PxPatientID"]) }, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

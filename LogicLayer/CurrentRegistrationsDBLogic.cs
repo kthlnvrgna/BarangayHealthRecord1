@@ -46,6 +46,7 @@ namespace LogicLayer
                             patient.Address = dr["Address"].ToString();
                             patient.Nationality = dr["Nationality"].ToString();
                             patient.Religion = dr["Religion"].ToString();
+                            patient.Category = dr["Category"].ToString();
                             if (!(dr["BirthDate"] is DBNull))
                             {
                                 patient.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
@@ -66,11 +67,14 @@ namespace LogicLayer
                 using (SqlCommand comm = new SqlCommand())
                 { 
                     _queryStr = new StringBuilder();
-                    _queryStr.Append("SELECT b.PatientID, a.RegNum, FirstName, MiddleName, Lastname, sex, FamilyRecord, Medicines, Allergies, ChiefComplaint, Consultation, BirthDate ");
+                    _queryStr.Append("SELECT b.PatientID, a.RegNum, FirstName, MiddleName, Lastname, sex, FamilyRecord, Medicines, Allergies, ChiefComplaint, Consultation, Diagnosis, Treatment, BirthDate ");
                     _queryStr.Append("FROM PatientData..tbPatientRegistration a ");
                     _queryStr.Append("LEFT JOIN PatientData..tbPatientMaster b on a.PatientID = b.PatientID ");
                     _queryStr.Append("LEFT JOIN PatientData..tbRegistrationDetails c on b.PatientID = c.PatientID ");
-                    _queryStr.Append(string.Format("WHERE b.PatientID = '{0}' AND a.RegNum = '{1}'", id, regnum));
+                    if (id != -1 && id != -2)
+                    {
+                        _queryStr.Append(string.Format("WHERE b.PatientID = '{0}' AND a.RegNum = '{1}'", id, regnum));
+                    }else _queryStr.Append(string.Format("WHERE a.RegNum = '{0}'", regnum));
 
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
@@ -93,7 +97,9 @@ namespace LogicLayer
                             Medicines = dr["Medicines"].ToString(),
                             Allergies = dr["Allergies"].ToString(),
                             ChiefComplaint = dr["ChiefComplaint"].ToString(),
-                            Consultation = dr["Consultation"].ToString()
+                            Consultation = dr["Consultation"].ToString(),
+                            Treatment = dr["Treatment"].ToString(),
+                            Diagnosis = dr["Diagnosis"].ToString()
                         }; 
                         if (!(dr["BirthDate"] is DBNull))
                         {
@@ -118,7 +124,9 @@ namespace LogicLayer
                     _queryStr.Append("Medicines = @meds, ");
                     _queryStr.Append("Allergies = @allergies, ");
                     _queryStr.Append("ChiefComplaint = @chiefComplaint, ");
-                    _queryStr.Append("Consultation= @consultation "); 
+                    _queryStr.Append("Consultation= @consultation, ");
+                    _queryStr.Append("Diagnosis = @diag, ");
+                    _queryStr.Append("Treatment = @treatment ");
                     _queryStr.Append(string.Format("WHERE RegNum = '{0}'", Model.RegNum));
 
 
@@ -131,6 +139,8 @@ namespace LogicLayer
                     comm.Parameters.AddWithValue("@allergies", Model.Allergies);
                     comm.Parameters.AddWithValue("@chiefComplaint", Model.ChiefComplaint); 
                     comm.Parameters.AddWithValue("@consultation", Model.Consultation); 
+                    comm.Parameters.AddWithValue("@treatment", Model.Treatment); 
+                    comm.Parameters.AddWithValue("@diag", Model.Diagnosis); 
 
                     try
                     {

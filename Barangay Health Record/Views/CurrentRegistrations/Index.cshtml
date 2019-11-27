@@ -25,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Sex)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            Patient Type
         </th>
         <th></th>
     </tr>
@@ -51,10 +51,10 @@
         @Html.DisplayFor(modelItem => item.Sex)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.BirthDate)
+        @Html.DisplayFor(modelItem => item.Category)
     </td>
     <td>
-        @Html.ActionLink("Check-up Details", "Details", new { id = item.PatientID, regnum = item.RegNum })
+        @Html.ActionLink("Details", "Details", "CurrentRegistrations", new { id = -1, regnum = item.RegNum }, null)
     </td>
 </tr>
 }

@@ -11,22 +11,23 @@ namespace Barangay_Health_Record.Controllers
     {
         public ActionResult Index()
         {
-            CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-            List<PatientsModel> Model = CurrentRegistrations.PatientList.ToList();
+            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
+            List<PatientsModel> Model = dbLogic.PatientList.ToList();
             return View(Model);
-        }  
-
-        [HttpGet]
+        }   
         public ActionResult Details(int id, string regnum)
         { 
-            CurrentRegistrationsDBLogic CurrentRegistrations = new CurrentRegistrationsDBLogic();
-            CurrentRegistrationsModel Model = CurrentRegistrations.GetCheckUpData(id, regnum);
+            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
+            CurrentRegistrationsModel Model = dbLogic.GetCheckUpData(id, regnum);
+
+            if (id == -2)
+                ViewBag.Details = ("Details");
             return View(Model);
         }
 
         [HttpPost]
         [ActionName("Details")]
-        public ActionResult SaveCheckUpDetails( string RegNum, string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation)
+        public ActionResult SaveCheckUpDetails( string RegNum, string FamilyRecord, string Medicines, string Allergies, string ChiefComplaint, string Consultation, string Treatment, string Diagnosis)
         {
             CurrentRegistrationDetailsModel Model = new CurrentRegistrationDetailsModel(); 
             Model.RegNum = RegNum;
@@ -35,11 +36,16 @@ namespace Barangay_Health_Record.Controllers
             Model.Allergies = Allergies;
             Model.ChiefComplaint = ChiefComplaint;
             Model.Consultation = Consultation;
+            Model.Treatment = Treatment;
+            Model.Diagnosis = Diagnosis;
 
             CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
             dbLogic.UdpatePatientCheckUpDetails(Model); 
 
-            return View();
+            CurrentRegistrationsModel ViewModel = dbLogic.GetCheckUpData(-1,Model.RegNum);
+
+            ViewBag.Message = ("Saved!");
+            return View(ViewModel);
         } 
     }
 }

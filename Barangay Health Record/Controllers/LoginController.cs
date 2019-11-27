@@ -26,9 +26,26 @@ namespace Barangay_Health_Record.Controllers
                 ModelState.AddModelError("Password", "Provide required data!");
                 return View();
             }
+            else
+            { 
+                var userID = dbLogic.FindUser(Model); 
+                
+                if (userID != null)
+                {
+                    Session.Add("UserID", userID);
 
-            if (dbLogic.FindUser(Model))
-                return RedirectToAction("Index", "Patients");
+                    CurrentUserDBLogic currentUserDBLogic = new CurrentUserDBLogic();
+                    CurrentUserModel SessionModel = new CurrentUserModel();
+                    SessionModel = currentUserDBLogic.UserInfo(userID);
+
+                    if(SessionModel != null)
+                    {
+                        Session.Add("UFname", SessionModel.FirstName);
+                        Session.Add("ULname", SessionModel.LastName);
+                    } 
+                    return RedirectToAction("Index", "Patients");
+                } 
+            }
 
             ModelState.AddModelError("Password", "Username or password is incorrect!");
             return View(Model);

@@ -10,7 +10,7 @@ namespace LogicLayer
     public class LoginDBLogic
     {
         private string _connectionString = ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString;
-        public bool FindUser(LoginModel Model)
+        public string FindUser(LoginModel Model)
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
@@ -18,7 +18,7 @@ namespace LogicLayer
                 {
                     comm.Connection = conn;
                     comm.CommandType = CommandType.Text;
-                    comm.CommandText = "SELECT 1 FROM Users..tbUserInfo WHERE UserName=@userName AND Password = @password";
+                    comm.CommandText = "SELECT UserID FROM Users..tbUserInfo WHERE UserName=@userName AND Password = @password";
                     comm.Parameters.AddWithValue("@userName", Model.UserName);
                     comm.Parameters.AddWithValue("@password", Model.Password);
 
@@ -26,9 +26,9 @@ namespace LogicLayer
                     SqlDataReader rdr;
                     rdr = comm.ExecuteReader();
                     if (rdr.Read())
-                        return true;
+                        return rdr["UserID"].ToString();
 
-                    return false;
+                    return null;
                 }
             }
         }

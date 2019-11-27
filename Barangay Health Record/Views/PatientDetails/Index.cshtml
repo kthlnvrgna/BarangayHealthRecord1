@@ -1,0 +1,104 @@
+﻿@model IEnumerable<LogicLayer.PatientDetailsModel>
+
+@{
+    ViewBag.Title = "Index"; 
+}
+
+<h2>Patient Checkup Details</h2>
+ 
+<table class="table">
+    <tr>
+        <td colspan="3">
+            @Session["PxFname"].ToString() @Session["PxMname"].ToString() @Session["PxLname"].ToString()
+        </td>
+        <td colspan="3">
+            @Session["PxSex"].ToString() @Convert.ToString(string.Format("{0:MM/dd/yyyy}", @Session["PxBirthDate"])) @Session["PxAddress"].ToString()
+        </td>
+        <td colspan="4">
+            @if (Session["PxCivilStatus"].ToString() != null)
+            {@Session["PxCivilStatus"].ToString()}
+
+            @if (Session["PxNationality"].ToString() != null)
+            {@Session["PxNationality"].ToString()}
+
+            @if (Session["PxReligion"].ToString() != null)
+            {@Session["PxReligion"].ToString()}
+
+            @if (Session["PxCategory"].ToString() != null)
+            {@Session["PxCategory"].ToString()}
+
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Checkup Number
+        </th>
+        <th>
+            Registration Date
+        </th>
+        <th>
+            Discharge Time
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.FamilyRecord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medicines)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Allergies)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChiefComplaint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Consultation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Treatment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diagnosis)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNum)
+        </td>
+        <td> 
+            @Convert.ToString(string.Format("{0:MM/dd/yyyy}", item.RegDate))
+        </td>
+        <td> 
+            @Convert.ToString(string.Format("{0:MM/dd/yyyy}", item.DcrDate))
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.FamilyRecord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Medicines)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Allergies)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChiefComplaint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Consultation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Treatment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diagnosis)
+        </td>*@
+        <td>
+            @Html.ActionLink("Details", "Details", "CurrentRegistrations", new { id = -2, regnum = item.RegNum }, null)
+        </td>
+    </tr>
+}
+
+</table>

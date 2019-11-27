@@ -38,11 +38,12 @@ namespace LogicLayer
                         patient.Address = dr["Address"].ToString();
                         patient.Nationality = dr["Nationality"].ToString();
                         patient.Religion = dr["Religion"].ToString();
+                        patient.Category = dr["Category"].ToString();
+                        patient.CivilStatus = dr["CivilStatus"].ToString();
                         if (!(dr["BirthDate"] is DBNull))
                         { 
                         patient.BirthDate = Convert.ToDateTime(dr["BirthDate"]); 
                         }
-                        patient.Category = dr["Category"].ToString();
                         liPatients.Add(patient);
                     }
 

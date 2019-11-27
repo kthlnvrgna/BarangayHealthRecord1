@@ -269,8 +269,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ConnectionStrings.cs" />
+    <Compile Include="Controllers\CurrentUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NewUserController.cs" />
+    <Compile Include="Controllers\PatientDetailsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
     <Compile Include="Controllers\CurrentRegistrationsController.cs" />
     <Compile Include="Controllers\PatientInfoController.cs" />
@@ -849,6 +851,10 @@
     <Content Include="Views\NewUser\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\CurrentRegistrations\Details.cshtml" />
+    <Content Include="Views\CurrentUser\Index.cshtml" />
+    <Content Include="Views\Shared\PatientBasicInfo.cshtml" />
+    <Content Include="Views\PatientDetails\Index.cshtml" />
+    <Content Include="Views\CurrentUser\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

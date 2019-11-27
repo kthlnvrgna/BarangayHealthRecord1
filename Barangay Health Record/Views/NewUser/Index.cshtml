@@ -21,19 +21,19 @@
                     <div class="card-body">
                         <h4 class="title">Create New User</h4>
                         <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "", new { @style = "text-align:center; color:red;" })
 
                         <div class="row-space">
                             <div>
                                 <span class="label">User Name</span>
                                 @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @style = "text-align:center; color:red;" })
                             </div>
 
                             <div>
                                 <span class="label">Password</span>
                                 @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "input--style-4", @type = "password" } })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @style = "text-align:center; color:red;" })
                             </div>
                         </div>
 
@@ -41,13 +41,13 @@
                             <div>
                                 <span class="label">First Name</span>
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @style = "text-align:center; color:red;" })
                             </div>
 
                             <div>
                                 <span class="label">Last Name</span>
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
-                                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.LastName, "", new { @style = "text-align:center; color:red;" })
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@
                             <div>
                                 <span class="label">Birthday</span>
                                 @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off", @type = "date", @style = "padding:0 10px;", @width = "100%" } })
-                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @style = "text-align:center; color:red;" })
                             </div>
                         </div>
 
@@ -81,8 +81,14 @@
                                new SelectListItem{Text = "Midwife", Value="Midwife"},
                                new SelectListItem{Text = "IT Admin", Value="ITAdmin"}
                            }, "Select Usertype", new { @class = "input--style-4", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.UserType, "", new { @style = "text-align:center; color:red;" })
                             </div>
+                        </div>
+                        <div class="row row-space" style="text-align: center; display: inherit;color: green">
+                            @if (ViewBag.Message != null)
+                            {
+                                @Html.Label("Account Successfully Created!")
+                            }
                         </div>
 
                         <br />
