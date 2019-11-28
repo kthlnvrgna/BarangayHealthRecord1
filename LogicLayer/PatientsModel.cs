@@ -8,7 +8,7 @@ namespace LogicLayer
     public class PatientsModel
     { 
         public int PatientID { get; set; }
-        public string RegNum { get; set; }
+        public string RegNum { get; set; } 
 
         [Required]
         public string FirstName { get; set; }
@@ -44,5 +44,8 @@ namespace LogicLayer
 
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Category { get; set; }
+
+        public DateTime RegDate { get; set; }
+        public DateTime DcrDate { get; set; }
     }
 }

@@ -885,8 +885,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\CheckUpDetails\" />
-    <Folder Include="Views\CheckUp\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

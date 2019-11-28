@@ -69,7 +69,7 @@
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.PatientID })  <br />
-        @Html.ActionLink("Details", "Index", "PatientDetails", new { id = item.PatientID }, null) <br />
+        @Html.ActionLink("View all checkups", "Index", "PatientDetails", new { id = item.PatientID }, null) <br />
         @Html.ActionLink("New Checkup", "ReAdmit", new { id = item.PatientID })
     </td>
 </tr>

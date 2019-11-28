@@ -51,6 +51,11 @@ namespace LogicLayer
                             {
                                 patient.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
                             }
+                            if (!(dr["DcrDate"] is DBNull))
+                            {
+                                patient.DcrDate = Convert.ToDateTime(dr["DcrDate"]);
+                            }
+                            patient.RegDate = Convert.ToDateTime(dr["RegDate"]);
                             Patients.Add(patient);
                         }
 
