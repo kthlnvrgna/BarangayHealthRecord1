@@ -30,7 +30,7 @@ namespace Barangay_Health_Record.Controllers
                 Session.Add("PxCivilStatus", model.CivilStatus);
                 Session.Add("PxNationality", model.Nationality);
                 Session.Add("PxReligion", model.Religion);
-                Session.Add("PxCategory", model.Category);
+                Session.Add("PxCategory", model.Category);  
             }
 
             PatientDetailsDBLogic listDbLogic = new PatientDetailsDBLogic();
