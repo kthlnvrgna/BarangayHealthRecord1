@@ -81,7 +81,7 @@ namespace LogicLayer
                     {
                         comm.Connection = conn;
                         comm.CommandType = CommandType.Text;
-                        comm.CommandText = "SELECT * FROM PatientData..Logs";
+                        comm.CommandText = "SELECT * FROM PatientData..Logs ORDER BY RemarksDate ASC";
 
                         try
                         {

@@ -75,11 +75,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.RegNum)
         </td>
-        <td> 
-            @Convert.ToString(string.Format("{0:MM/dd/yyyy}", item.RegDate))
+        <td>
+            @Html.DisplayFor(modelItem => item.RegDate)
         </td>
-        <td> 
-            @Convert.ToString(string.Format("{0:MM/dd/yyyy}", item.DcrDate))
+        <td>
+            @Html.DisplayFor(modelItem => item.DcrDate)
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.FamilyRecord)

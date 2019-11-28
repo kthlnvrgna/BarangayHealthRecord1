@@ -156,5 +156,21 @@ namespace LogicLayer
             }
         }
 
+        public void DischargePatient(string ID)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionStr))
+            {
+                using(SqlCommand comm = new SqlCommand())
+                {
+                    comm.Connection = conn;
+                    comm.CommandType = CommandType.Text;
+                    comm.CommandText = string.Format("UPDATE PatientData..tbPatientRegistration SET DcrDate = GETDATE() WHERE RegNum = '{0}'", ID);
+
+                    conn.Open();
+                    comm.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

@@ -9,16 +9,17 @@ namespace Barangay_Health_Record.Controllers
 {
     public class CurrentRegistrationsController : Controller
     {
+        private CurrentRegistrationsDBLogic _dbLogic;
         public ActionResult Index()
         {
-            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
-            List<PatientsModel> Model = dbLogic.PatientList.ToList();
+            _dbLogic = new CurrentRegistrationsDBLogic();
+            List<PatientsModel> Model = _dbLogic.PatientList.ToList();
             return View(Model);
         }   
         public ActionResult Details(int id, string regnum)
-        { 
-            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
-            CurrentRegistrationsModel Model = dbLogic.GetCheckUpData(id, regnum);
+        {
+            _dbLogic = new CurrentRegistrationsDBLogic();
+            CurrentRegistrationsModel Model = _dbLogic.GetCheckUpData(id, regnum);
 
             if (id == -2)
                 ViewBag.Details = ("Details");
@@ -39,13 +40,20 @@ namespace Barangay_Health_Record.Controllers
             Model.Treatment = Treatment;
             Model.Diagnosis = Diagnosis;
 
-            CurrentRegistrationsDBLogic dbLogic = new CurrentRegistrationsDBLogic();
-            dbLogic.UdpatePatientCheckUpDetails(Model); 
+            _dbLogic = new CurrentRegistrationsDBLogic();
+            _dbLogic.UdpatePatientCheckUpDetails(Model); 
 
-            CurrentRegistrationsModel ViewModel = dbLogic.GetCheckUpData(-1,Model.RegNum);
+            CurrentRegistrationsModel ViewModel = _dbLogic.GetCheckUpData(-1,Model.RegNum);
 
             ViewBag.Message = ("Saved!");
             return View(ViewModel);
         } 
+
+        public ActionResult Discharge(string ID)
+        {
+            _dbLogic = new CurrentRegistrationsDBLogic();
+            _dbLogic.DischargePatient(ID);
+            return RedirectToAction("Index");
+        }
     }
 }

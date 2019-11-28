@@ -5,8 +5,8 @@
 } 
 <h5>Registrations as of @DateTime.Now.ToShortDateString() </h5> 
 <table class="table" style="text-align:center">
-    <tr> 
-        <th> 
+    <tr>
+        <th>
             <span>Check up Number:</span>
         </th>
         <th>
@@ -25,10 +25,11 @@
             <span>Patient Type</span>
         </th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
-<tr> 
+<tr>
     <td>
         @Html.DisplayFor(modelItem => item.RegNum)
     </td>
@@ -48,7 +49,13 @@
         @Html.DisplayFor(modelItem => item.Category)
     </td>
     <td>
+        @Html.DisplayFor(modelItem => item.RegNum)
+    </td>
+    <td>
         @Html.ActionLink("Details", "Details", "CurrentRegistrations", new { id = -1, regnum = item.RegNum }, null)
+    </td>
+    <td>
+        @Html.ActionLink("Discharge", "Discharge", "CurrentRegistrations", new { ID = item.RegNum }, null)
     </td>
 </tr>
 }
