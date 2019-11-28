@@ -28,9 +28,7 @@ CREATE TABLE tbRegistrationDetails(
 PatientID VARCHAR(10) NOT NULL,
 FamilyRecord VARCHAR(MAX) NULL,
 Medicines VARCHAR(MAX) NULL,
-Allergies VARCHAR(250) NULL,
-ChiefComplaint VARCHAR(MAX) NULL,
-Consultation VARCHAR(MAX) NULL
+Allergies VARCHAR(250) NULL
 )
 GO
 

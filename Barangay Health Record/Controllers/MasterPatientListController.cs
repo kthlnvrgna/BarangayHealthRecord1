@@ -13,7 +13,7 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Index()
         {
             PatientsLogicLayer patientConnection = new PatientsLogicLayer();
-            List<PatientsModel> patients = patientConnection.PatientList.ToList();
+            List<Patients> patients = patientConnection.PatientList.ToList();
             return View(patients);
         }
         [HttpGet]//Will only respond if create/register new is triggered
@@ -25,19 +25,13 @@ namespace Barangay_Health_Record.Controllers
         [ActionName("RegisterNewPatient")]
         public ActionResult RegisterNewPatientPost()
         {
-            PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
-            PatientsModel patient = new PatientsModel(); 
-            var firstName = patient.FirstName;
-            var lastName = patient.LastName;
-            var bDay = patient.BirthDate;
 
-            var isNew = patientBlayer.PatientList.FirstOrDefault(x => ((x.FirstName == patient.FirstName) && (x.LastName == patient.LastName) && (x.BirthDate == patient.BirthDate) && (x.Sex == patient.Sex)));
-
-            TryUpdateModel(patient); 
+            Patients patient = new Patients();
+            TryUpdateModel(patient);
 
             if (ModelState.IsValid)
             {
-                patientBlayer = new PatientsLogicLayer();
+                PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
                 patientBlayer.AddNewPatientRegistration(patient);
                 return RedirectToAction("Index");
             }
@@ -48,14 +42,14 @@ namespace Barangay_Health_Record.Controllers
         public ActionResult Edit(int id)
         {
             PatientsLogicLayer patientBlayer = new PatientsLogicLayer();
-            PatientsModel patientsModel = patientBlayer.PatientList.Single(px => px.PatientID == id);
+            Patients patientsModel = patientBlayer.PatientList.Single(px => px.PatientID == id);
 
             return View(patientsModel);
         }
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult UpdatePatientInfo(PatientsModel patients)
+        public ActionResult UpdatePatientInfo(Patients patients)
         {
             if(ModelState.IsValid)
             {
