@@ -2,7 +2,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if(Session["UserID"].ToString() == null)
+@if(Session["UserID"] == null)
 {
     <script type="text/javascript">
         $(function(){ 

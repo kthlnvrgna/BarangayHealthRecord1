@@ -45,7 +45,7 @@ namespace LogicLayer
                         default:
                             remarks = "";
                             break;
-                    } 
+                    }
 
                     query.Append("INSERT INTO PatientData..Logs ");
                     query.Append("(Remarks, RemarksDate, UserID) ");
@@ -69,6 +69,48 @@ namespace LogicLayer
                 }
             }
 
+        }
+
+        public IEnumerable<LogsModel> GetLogs
+        {
+            get
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    using (SqlCommand comm = new SqlCommand())
+                    {
+                        comm.Connection = conn;
+                        comm.CommandType = CommandType.Text;
+                        comm.CommandText = "SELECT * FROM PatientData..Logs";
+
+                        try
+                        {
+                            conn.Open();
+                            SqlDataReader rdr;
+                            rdr = comm.ExecuteReader();
+                            List<LogsModel> modelList = new List<LogsModel>();
+                            if (rdr.HasRows)
+                            {
+                                while (rdr.Read())
+                                {
+                                    LogsModel model = new LogsModel();
+                                    model.Remarks = rdr["Remarks"].ToString();
+                                    model.RemarksDate = Convert.ToDateTime(rdr["RemarksDate"]);
+                                    model.UserID = rdr["UserID"].ToString();
+
+                                    modelList.Add(model);
+                                }
+                                return modelList;
+                            }
+                        }
+                        catch
+                        {
+                            throw;
+                        }
+                        return null;
+                    }
+                }
+            }
         }
     }
 }

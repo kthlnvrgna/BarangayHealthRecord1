@@ -295,6 +295,7 @@
     <Compile Include="ConnectionStrings.cs" />
     <Compile Include="Controllers\CurrentUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\NewUserController.cs" />
     <Compile Include="Controllers\PatientDetailsController.cs" />
     <Compile Include="Controllers\PatientsController.cs" />
@@ -879,6 +880,7 @@
     <Content Include="Views\Shared\PatientBasicInfo.cshtml" />
     <Content Include="Views\PatientDetails\Index.cshtml" />
     <Content Include="Views\CurrentUser\UserDetails.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

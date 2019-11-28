@@ -25,6 +25,15 @@
                 @Html.ActionLink("Current Registrations", "Index", "CurrentRegistrations", new { area = "" }, new { @class = "nav-item nav-link active" })
                 @Html.ActionLink("List of all Patients", "Index", "Patients", new { area = "" }, new { @class = "nav-item nav-link active" })
                 @Html.ActionLink("Register New Patient", "RegisterNewPatient", "Patients", new { area = "" }, new { @class = "nav-item nav-link active" })
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Others
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Logs/Index/">Logs</a> 
+                    </div>
+                </li>
             </div>
         </div>
         <form class="form-inline">
