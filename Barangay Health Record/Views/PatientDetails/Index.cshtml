@@ -7,49 +7,50 @@
 <h2>Patient Checkup Details</h2>
  
 <table class="table" style="border-bottom:none">
-    <thead style="background-color:#cccccc">
+    <thead style="background-color:#ccffff">
         <tr>
             <td>
-                <span>Patient name</span>
+                <b><span>Patient name</span></b>
                 <br />
                 @Session["PxFname"].ToString() @Session["PxMname"].ToString() @Session["PxLname"].ToString()
             </td>
             <td>
-                <span>Patient Gender</span>
+                <b><span>Patient Gender</span></b>
+                <br />
                 @Session["PxSex"].ToString()
             </td>
             <td>
-                <span>Birthday</span>
+                <b><span>Birthday</span></b> 
                 <br />
                 @Convert.ToString(string.Format("{0:MM/dd/yyyy}", @Session["PxBirthDate"]))
             </td>
             <td>
-                <span>Address</span>
+                <b><span>Address</span></b> 
                 <br />
                 @Session["PxAddress"].ToString()
             </td>
         </tr>
         <tr>
             <td>
-                <span>Civil Status</span>
+                <b><span>Civil Status</span></b> 
                 <br />
                 @if (Session["PxCivilStatus"].ToString() != null)
                 {@Session["PxCivilStatus"].ToString()}
             </td>
             <td>
-                <span>Nationality</span>
+                <b><span>Nationality</span></b> 
                 <br />
                 @if (Session["PxNationality"].ToString() != null)
                 {@Session["PxNationality"].ToString()}
             </td>
             <td>
-                <span>Religion</span>
+                <b><span>Religion</span></b> 
                 <br />
                 @if (Session["PxReligion"].ToString() != null)
                 {@Session["PxReligion"].ToString()}
             </td>
             <td>
-                <span>Patient Type</span>
+                <b><span>Patient Type</span></b> 
                 <br />
                 @if (Session["PxCategory"].ToString() != null)
                 {@Session["PxCategory"].ToString()}

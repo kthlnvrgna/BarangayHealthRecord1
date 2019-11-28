@@ -45,7 +45,8 @@ namespace LogicLayer
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Category { get; set; }
 
-        public DateTime RegDate { get; set; }
-        public DateTime DcrDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? RegDate { get; set; }
+        public DateTime? DcrDate { get; set; }
     }
 }
