@@ -1,42 +1,58 @@
-﻿<!DOCTYPE html>
+﻿@using LogicLayer; 
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Barangay Health Record</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        .userOnHover:hover{
+            color:#33ccff;
+        }
+    </style>
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>*@
-                @Html.ActionLink("Health Record", "Index", "MasterPatientList", new { area = "" }, new { @class = "navbar-brand" })
+<body>  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href='@Url.Action("Index", "CurrentRegistrations")'>BHR</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                @Html.ActionLink("Current Registrations", "Index", "CurrentRegistrations", new { area = "" }, new { @class = "nav-item nav-link active" })
+                @Html.ActionLink("List of all Patients", "Index", "Patients", new { area = "" }, new { @class = "nav-item nav-link active" })
+                @Html.ActionLink("Register New Patient", "RegisterNewPatient", "Patients", new { area = "" }, new { @class = "nav-item nav-link active" })
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Others
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Logs/Index/">Logs</a> 
+                    </div>
+                </li>
             </div>
-            @*<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>*@
         </div>
-    </div>
+        <form class="form-inline">
+            @Html.ActionLink("Welcome, " + @Session["UFname"].ToString() + " " + @Session["ULname"].ToString(), "Index", "CurrentUser", new { area = "" }, new { @class = "nav-item nav-link userOnHover", @style = "color:white" }) 
+            @Html.ActionLink("Log Out", "Index", "Login", new { area = "" }, new { @class = "btn btn-outline-light my-2 my-sm-0" })
+        </form>
+    </nav> 
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; 2019 - BHR</p>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

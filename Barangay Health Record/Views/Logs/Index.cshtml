@@ -1,0 +1,36 @@
+﻿@model IEnumerable<LogicLayer.LogsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Logs</h2>
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RemarksDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th> 
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RemarksDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td> 
+    </tr>
+}
+
+</table>
