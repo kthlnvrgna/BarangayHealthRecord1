@@ -42,7 +42,10 @@ namespace Barangay_Health_Record.Controllers
                     {
                         Session.Add("UFname", SessionModel.FirstName);
                         Session.Add("ULname", SessionModel.LastName);
-                    } 
+                    }
+
+                    LogsDbLogic logs = new LogsDbLogic();
+                    logs.SaveLogs(1, Session["UserID"].ToString(), null);
                     return RedirectToAction("Index", "Patients");
                 } 
             }

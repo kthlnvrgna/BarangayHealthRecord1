@@ -68,8 +68,10 @@ namespace Barangay_Health_Record.Controllers
                 return View(model);
             }
 
-            dbLogic.AddNewUser(model); 
+            dbLogic.AddNewUser(model);
 
+            LogsDbLogic logs = new LogsDbLogic();
+            logs.SaveLogs(2, null, "Name: " + model.FirstName + " " + model.LastName + " Birthday: " + model.BirthDate + " User Type: " + model.UserType); 
             ViewBag.Message = ("Account Created!");
             return View();
         } 

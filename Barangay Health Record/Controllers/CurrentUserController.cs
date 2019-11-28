@@ -79,6 +79,10 @@ namespace Barangay_Health_Record.Controllers
             }
 
             _dbLogic.UpdateUserInfo(_model, Session["UserID"].ToString()); 
+
+            LogsDbLogic logs = new LogsDbLogic();
+            logs.SaveLogs(3, Session["UserID"].ToString(), "First name: " + _model.FirstName + " Last name: " + _model.LastName + " Username: " + _model.UserName + " Password: " +_model.Password);
+
             _model = new CurrentUserModel();
             _model = _dbLogic.UserInfo(Session["UserID"].ToString());
 
@@ -91,6 +95,7 @@ namespace Barangay_Health_Record.Controllers
                 Session.Add("UFname", SessionModel.FirstName);
                 Session.Add("ULname", SessionModel.LastName);
             }
+
 
             ViewBag.Success = ("1");
             return View(_model);

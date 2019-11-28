@@ -38,25 +38,7 @@
                             <span class="label">Last Name</span> 
                                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "input--style-4", @autocomplete = "off" } })
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" }) 
-                        </div>
-
-                        <div class="row-space">
-                            <span class="label">Gender</span> 
-                                @Html.DropDownList("Sex", new List<SelectListItem>
-                               {
-                                   new SelectListItem{Text="Female", Value="Female"},
-                                   new SelectListItem{Text="Male", Value="Male" }
-                               }, "Select Gender", new { @class = "input--style-4", @style = "width:100%" })
-                                @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" }) 
-                        </div>
-
-                        <div class="row-space">
-                            <span class="label">Birthday</span> 
-                                @* @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "input--style-4" } })*@
-                                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                                @*@Html.EditorFor(model => model.BirthDate, new { type = "date", Value = Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.BirthDate))})*@ 
-                                <input type="date" class="input--style-4" id="BirthDate" name="BirthDate" value=@Convert.ToString(string.Format("{0:MM/dd/yyyy}", Model.BirthDate)) /> 
-                        </div>
+                        </div>  
 
                         <div class="row-space">
                             <span class="label">Address</span> 

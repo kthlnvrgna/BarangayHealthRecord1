@@ -162,7 +162,7 @@ namespace LogicLayer
             }
         }
 
-        private string GetPxRxNum(string Field)
+        public string GetPxRxNum(string Field)
         {
             using (SqlConnection conn = new SqlConnection(_connectionStr))
             {
@@ -228,13 +228,11 @@ namespace LogicLayer
                     _queryStr.Append("SET ");
                     _queryStr.Append("FirstName  = @fName, ");
                     _queryStr.Append("MiddleName = @mName, ");
-                    _queryStr.Append("LastName = @lName, ");
-                    _queryStr.Append("Sex = @sex, ");
+                    _queryStr.Append("LastName = @lName, "); 
                     _queryStr.Append("Address = @address, ");
                     _queryStr.Append("CivilStatus = @civilStatus, ");
                     _queryStr.Append("Nationality = @nationality, ");
-                    _queryStr.Append("Religion = @religion, ");
-                    _queryStr.Append("BirthDate = @bDay ");
+                    _queryStr.Append("Religion = @religion "); 
                     _queryStr.Append("WHERE PatientID = @patientID");
 
 
@@ -244,13 +242,11 @@ namespace LogicLayer
 
                     comm.Parameters.AddWithValue("@fname", Model.FirstName);
                     comm.Parameters.AddWithValue("@mName", Model.MiddleName);
-                    comm.Parameters.AddWithValue("@lName", Model.LastName);
-                    comm.Parameters.AddWithValue("@sex", Model.Sex);
+                    comm.Parameters.AddWithValue("@lName", Model.LastName); 
                     comm.Parameters.AddWithValue("@address", Model.Address);
                     comm.Parameters.AddWithValue("@civilStatus", Model.CivilStatus);
                     comm.Parameters.AddWithValue("@nationality", Model.Nationality);
-                    comm.Parameters.AddWithValue("@Religion", Model.Religion);
-                    comm.Parameters.AddWithValue("@Bday", Model.BirthDate);
+                    comm.Parameters.AddWithValue("@Religion", Model.Religion); 
                     comm.Parameters.AddWithValue("@patientID", Model.PatientID);
 
                     try

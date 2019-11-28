@@ -42,4 +42,13 @@ CREATE TABLE [dbo].[tbRegistrationDetails](
 	[Diagnosis] [varchar](max) NULL
 	PRIMARY KEY (RegNum)
 )  
-GO
+GO 
+
+CREATE TABLE Logs(
+ID INTEGER IDENTITY(1,1),
+Remarks VARCHAR(MAX) NOT NULL,
+RemarksDate DATETIME NOT NULL,
+UserID VARCHAR(5) NOT NULL
+PRIMARY KEY(ID)
+)
+GO 
