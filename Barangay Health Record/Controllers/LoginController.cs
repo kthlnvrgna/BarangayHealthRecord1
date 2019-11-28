@@ -13,6 +13,7 @@ namespace Barangay_Health_Record.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            Session.Clear();
             return View();
         } 
         [HttpPost]
