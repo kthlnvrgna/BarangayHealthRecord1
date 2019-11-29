@@ -31,13 +31,14 @@
                         Others
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/Logs/Index/">Logs</a> 
+                        <a class="dropdown-item" href="/Logs/Index/">Logs</a>
+                        <a class="dropdown-item" href="/AllUsers/Index/">All Users</a>
                     </div>
                 </li>
             </div>
         </div>
         <form class="form-inline">
-            @Html.ActionLink("Welcome, " + @Session["UFname"].ToString() + " " + @Session["ULname"].ToString(), "Index", "CurrentUser", new { area = "" }, new { @class = "nav-item nav-link userOnHover", @style = "color:white" }) 
+            @Html.ActionLink("Welcome, " + @Session["UFname"].ToString() + " " + @Session["ULname"].ToString(), "Index", "CurrentUser", new { id = @Session["UserID"].ToString() }, new { @class = "nav-item nav-link userOnHover", @style = "color:white" }) 
             @Html.ActionLink("Log Out", "Index", "Login", new { area = "" }, new { @class = "btn btn-outline-light my-2 my-sm-0" })
         </form>
     </nav> 

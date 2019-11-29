@@ -12,19 +12,25 @@ namespace Barangay_Health_Record.Controllers
         // GET: CurrentUser
         private CurrentUserDBLogic _dbLogic;
         private CurrentUserModel _model;
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
             _dbLogic = new CurrentUserDBLogic();
             _model = new CurrentUserModel();
-            _model = _dbLogic.UserInfo(Session["UserID"].ToString()); 
+            _model = _dbLogic.UserInfo(id); 
             return View(_model); 
         }
 
-        public ActionResult UserDetails()
+        public ActionResult UserDetails(string id, bool isAll)
         {
             _dbLogic =  new CurrentUserDBLogic();
             _model = new CurrentUserModel();
-            _model = _dbLogic.UserInfo(Session["UserID"].ToString());
+            _model = _dbLogic.UserInfo(id);
+
+            Session.Add("ActiveUserID", id);
+
+            if (isAll)
+                ViewBag.AllUsers = ("1");
+
             return View(_model);
         }
         [HttpPost]

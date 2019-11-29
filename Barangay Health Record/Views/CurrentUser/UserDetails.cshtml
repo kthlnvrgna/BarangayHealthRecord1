@@ -67,7 +67,14 @@
                         <div class="row row-space" style="text-align: center; display: inherit;">
                             <div class="col-md-offset-2 col-md-10">
                                 <input type="submit" value="Save" class="btn btn--radius-2 btn--green" style="width:27%" />
-                                @Html.ActionLink("Back", "Index", null, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                                @if (ViewBag.AllUsers == null)
+                                {
+                                    @Html.ActionLink("Back", "Index", "CurrentUser", new { id = Session["ActiveUserID"].ToString() }, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Back", "Index", "AllUsers",null, new { @class = "btn btn--radius-2 btn--blue", @style = "text-decoration:none" })
+                                }
                             </div>
                         </div>
                     </div>
