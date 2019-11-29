@@ -75,7 +75,7 @@ namespace LogicLayer
                     _queryStr.Append("SELECT b.PatientID, a.RegNum, FirstName, MiddleName, Lastname, sex, FamilyRecord, Medicines, Allergies, ChiefComplaint, Consultation, Diagnosis, Treatment, BirthDate ");
                     _queryStr.Append("FROM PatientData..tbPatientRegistration a ");
                     _queryStr.Append("LEFT JOIN PatientData..tbPatientMaster b on a.PatientID = b.PatientID ");
-                    _queryStr.Append("LEFT JOIN PatientData..tbRegistrationDetails c on b.PatientID = c.PatientID ");
+                    _queryStr.Append("LEFT JOIN PatientData..tbRegistrationDetails c on a.RegNum = c.RegNum ");
                     if (id != -1 && id != -2)
                     {
                         _queryStr.Append(string.Format("WHERE b.PatientID = '{0}' AND a.RegNum = '{1}'", id, regnum));
